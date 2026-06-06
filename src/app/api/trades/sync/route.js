@@ -3,13 +3,25 @@ import { admin, db } from '@/lib/firebase-admin';
 
 export async function POST(request) {
   try {
+    let userId = null;
     const authHeader = request.headers.get('Authorization');
-    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    const apiKey = request.headers.get('X-API-Key');
+
+    if (authHeader && authHeader.startsWith('Bearer ')) {
+      const idToken = authHeader.split('Bearer ')[1];
+      const decodedToken = await admin.auth().verifyIdToken(idToken);
+      userId = decodedToken.uid;
+    } else if (apiKey) {
+      // Find user by API Key
+      const keysSnapshot = await db.collection('api_keys').where('key', '==', apiKey).limit(1).get();
+      if (!keysSnapshot.empty) {
+        userId = keysSnapshot.docs[0].data().userId;
+      }
+    }
+
+    if (!userId) {
       return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
     }
-    const idToken = authHeader.split('Bearer ')[1];
-    const decodedToken = await admin.auth().verifyIdToken(idToken);
-    const userId = decodedToken.uid;
 
     const body = await request.json();
     const { trades } = body;
