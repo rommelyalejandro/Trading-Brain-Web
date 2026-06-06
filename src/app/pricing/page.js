@@ -149,8 +149,8 @@ export default function PricingPage() {
 
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-          gap: '32px',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+          gap: '24px',
           alignItems: 'stretch'
         }}>
           {plans.map((plan, index) => (
