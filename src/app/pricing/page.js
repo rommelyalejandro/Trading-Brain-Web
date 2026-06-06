@@ -58,8 +58,8 @@ export default function PricingPage() {
     {
       name: "Free",
       alias: "Cuentas simuladas ilimitadas. Prueba todo el potencial del sistema sin restricciones.",
-      price: "$1.99",
-      period: "pago único",
+      price: "$0.00",
+      period: "/mes",
       priceId: "price_free_activation",
       features: ["Super Copiadora Básica", "Solo Cuentas Simuladas (Sim101)", "Ideal para Forward Testing", "Activación única de por vida", "🔥 ACCESO DE POR VIDA: Big Trades y Absorciones Institucionales (Valorado en cientos de $)"],
       themeColor: "#94a3b8", // slate-400
@@ -300,7 +300,7 @@ export default function PricingPage() {
                   onMouseOver={(e) => { if(!loading) e.currentTarget.style.transform = 'scale(1.02)'; }}
                   onMouseOut={(e) => { if(!loading) e.currentTarget.style.transform = 'scale(1)'; }}
                 >
-                  {loading ? 'PROCESANDO...' : (plan.name === 'Free' ? 'Activar Licencia de por vida $1.99' : `Elegir ${plan.name}`)}
+                  {loading ? 'PROCESANDO...' : (plan.name === 'Free' ? 'Activar licencia de por vida $1.99 pago único' : `Elegir ${plan.name}`)}
                 </button>
               </div>
             </div>
