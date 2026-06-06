@@ -76,101 +76,104 @@ export default function Login() {
   return (
     <div style={{
       minHeight: '100vh',
-      backgroundColor: '#020617',
+      backgroundColor: '#0a0f1c',
       color: '#f8fafc',
-      fontFamily: 'system-ui, sans-serif',
+      fontFamily: '"Inter", sans-serif',
       position: 'relative',
       overflow: 'hidden',
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center'
     }}>
-      {/* Background Glow Effects (Quantum Glassmorphism) */}
-      <div style={{ position: 'absolute', top: '10%', left: '20%', width: '400px', height: '400px', background: 'radial-gradient(circle, rgba(34,211,238,0.15) 0%, rgba(2,6,23,0) 70%)', borderRadius: '50%', filter: 'blur(60px)', zIndex: 0 }} />
-      <div style={{ position: 'absolute', bottom: '10%', right: '20%', width: '500px', height: '500px', background: 'radial-gradient(circle, rgba(168,85,247,0.1) 0%, rgba(2,6,23,0) 70%)', borderRadius: '50%', filter: 'blur(80px)', zIndex: 0 }} />
+      {/* Subtle Background Element */}
+      <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '400px', background: 'radial-gradient(ellipse at top, rgba(34, 211, 238, 0.05) 0%, rgba(10, 15, 28, 0) 70%)', pointerEvents: 'none' }} />
 
       {/* Login Panel */}
       <div style={{
-        position: 'relative', zIndex: 10, maxWidth: '400px', width: '90%',
-        background: 'rgba(30, 41, 59, 0.5)', border: '1px solid rgba(148, 163, 184, 0.1)', 
-        borderRadius: '24px', padding: '40px 30px', backdropFilter: 'blur(16px)',
-        textAlign: 'center', boxShadow: '0 20px 40px rgba(0,0,0,0.4)'
+        position: 'relative', zIndex: 10, maxWidth: '420px', width: '90%',
+        background: '#101726', border: '1px solid rgba(255, 255, 255, 0.03)', 
+        borderRadius: '16px', padding: '48px 40px',
+        textAlign: 'center', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)'
       }}>
-        <img src="/logo.png" alt="Trading Brain AI Logo" style={{ width: '80px', height: '80px', marginBottom: '16px', borderRadius: '50%', boxShadow: '0 0 20px rgba(34, 211, 238, 0.4)' }} />
-        <h1 style={{ fontSize: '24px', fontWeight: '900', marginBottom: '8px', background: 'linear-gradient(90deg, #22d3ee, #a855f7)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-          Trading Brain AI
+        <img src="/icon.png" alt="Trading Brain AI Logo" style={{ width: '64px', height: '64px', marginBottom: '24px', filter: 'drop-shadow(0 0 10px rgba(34, 211, 238, 0.2))' }} />
+        <h1 style={{ fontSize: '1.5rem', fontWeight: '800', marginBottom: '8px', color: '#f8fafc', letterSpacing: '-0.5px' }}>
+          Welcome back
         </h1>
-        <p style={{ color: '#94a3b8', marginBottom: '32px', fontSize: '14px' }}>
-          {isRegistering ? 'Crea tu cuenta para acceder al sistema' : 'Identificación requerida para acceder al Command Center.'}
+        <p style={{ color: '#64748b', marginBottom: '32px', fontSize: '0.9rem' }}>
+          {isRegistering ? 'Create your account to start trading' : 'Enter your credentials to access your dashboard'}
         </p>
 
-        {errorMsg && <div style={{ background: 'rgba(239,68,68,0.1)', color: '#fca5a5', padding: '10px', borderRadius: '8px', marginBottom: '20px', fontSize: '13px', border: '1px solid rgba(239,68,68,0.2)' }}>{errorMsg}</div>}
+        {errorMsg && <div style={{ background: 'rgba(239,68,68,0.1)', color: '#ef4444', padding: '12px', borderRadius: '8px', marginBottom: '24px', fontSize: '0.875rem', border: '1px solid rgba(239,68,68,0.2)', fontWeight: '500' }}>{errorMsg}</div>}
 
         <form onSubmit={handleEmailAuth} style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '24px' }}>
           <input 
             type="email" 
-            placeholder="Correo electrónico" 
+            placeholder="Email address" 
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            style={{ width: '100%', padding: '12px 16px', background: 'rgba(15, 23, 42, 0.6)', border: '1px solid rgba(148, 163, 184, 0.2)', borderRadius: '12px', color: '#f8fafc', outline: 'none', transition: 'border-color 0.2s' }}
-            onFocus={e => e.target.style.borderColor = '#22d3ee'}
-            onBlur={e => e.target.style.borderColor = 'rgba(148, 163, 184, 0.2)'}
+            style={{ width: '100%', padding: '14px 16px', background: '#0a0f1c', border: '1px solid rgba(255, 255, 255, 0.05)', borderRadius: '8px', color: '#f8fafc', outline: 'none', transition: 'border-color 0.2s', fontSize: '0.875rem' }}
+            onFocus={e => e.target.style.borderColor = '#3b82f6'}
+            onBlur={e => e.target.style.borderColor = 'rgba(255, 255, 255, 0.05)'}
           />
           <input 
             type="password" 
-            placeholder="Contraseña" 
+            placeholder="Password" 
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-            style={{ width: '100%', padding: '12px 16px', background: 'rgba(15, 23, 42, 0.6)', border: '1px solid rgba(148, 163, 184, 0.2)', borderRadius: '12px', color: '#f8fafc', outline: 'none', transition: 'border-color 0.2s' }}
-            onFocus={e => e.target.style.borderColor = '#22d3ee'}
-            onBlur={e => e.target.style.borderColor = 'rgba(148, 163, 184, 0.2)'}
+            style={{ width: '100%', padding: '14px 16px', background: '#0a0f1c', border: '1px solid rgba(255, 255, 255, 0.05)', borderRadius: '8px', color: '#f8fafc', outline: 'none', transition: 'border-color 0.2s', fontSize: '0.875rem' }}
+            onFocus={e => e.target.style.borderColor = '#3b82f6'}
+            onBlur={e => e.target.style.borderColor = 'rgba(255, 255, 255, 0.05)'}
           />
           <button 
             type="submit"
             disabled={loading}
             style={{
-              width: '100%', padding: '14px', background: 'linear-gradient(90deg, #22d3ee, #a855f7)', color: 'white',
-              border: 'none', borderRadius: '12px', fontWeight: 'bold', cursor: loading ? 'wait' : 'pointer',
-              opacity: loading ? 0.7 : 1, transition: 'transform 0.2s'
+              width: '100%', padding: '14px', background: '#3b82f6', color: 'white',
+              border: 'none', borderRadius: '8px', fontWeight: '700', cursor: loading ? 'wait' : 'pointer',
+              opacity: loading ? 0.7 : 1, transition: 'background 0.2s, transform 0.1s', fontSize: '0.875rem', marginTop: '8px'
             }}
-            onMouseOver={e => !loading && (e.currentTarget.style.transform = 'translateY(-2px)')}
-            onMouseOut={e => !loading && (e.currentTarget.style.transform = 'translateY(0)')}
+            onMouseOver={e => !loading && (e.currentTarget.style.background = '#2563eb')}
+            onMouseOut={e => !loading && (e.currentTarget.style.background = '#3b82f6')}
+            onMouseDown={e => !loading && (e.currentTarget.style.transform = 'scale(0.98)')}
+            onMouseUp={e => !loading && (e.currentTarget.style.transform = 'scale(1)')}
           >
-            {loading ? 'Procesando...' : (isRegistering ? 'Crear Cuenta' : 'Ingresar al Ecosistema')}
+            {loading ? 'Processing...' : (isRegistering ? 'Sign Up' : 'Log In')}
           </button>
         </form>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
-          <div style={{ flex: 1, height: '1px', background: 'rgba(148, 163, 184, 0.2)' }} />
-          <span style={{ color: '#94a3b8', fontSize: '12px' }}>O</span>
-          <div style={{ flex: 1, height: '1px', background: 'rgba(148, 163, 184, 0.2)' }} />
+          <div style={{ flex: 1, height: '1px', background: 'rgba(255, 255, 255, 0.05)' }} />
+          <span style={{ color: '#64748b', fontSize: '0.75rem', fontWeight: '600' }}>OR</span>
+          <div style={{ flex: 1, height: '1px', background: 'rgba(255, 255, 255, 0.05)' }} />
         </div>
 
         <button 
           onClick={handleGoogleLogin}
           disabled={loading}
           style={{
-            background: 'rgba(255, 255, 255, 0.05)', color: '#f8fafc', border: '1px solid rgba(255, 255, 255, 0.1)',
-            padding: '12px', borderRadius: '12px', fontSize: '15px', fontWeight: '600', cursor: loading ? 'wait' : 'pointer',
+            background: 'transparent', color: '#f8fafc', border: '1px solid rgba(255, 255, 255, 0.1)',
+            padding: '12px', borderRadius: '8px', fontSize: '0.875rem', fontWeight: '600', cursor: loading ? 'wait' : 'pointer',
             display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', width: '100%',
             transition: 'background 0.2s', opacity: loading ? 0.7 : 1
           }}
-          onMouseOver={(e) => !loading && (e.currentTarget.style.background = 'rgba(255, 255, 255, 0.1)')}
-          onMouseOut={(e) => !loading && (e.currentTarget.style.background = 'rgba(255, 255, 255, 0.05)')}
+          onMouseOver={(e) => !loading && (e.currentTarget.style.background = 'rgba(255, 255, 255, 0.05)')}
+          onMouseOut={(e) => !loading && (e.currentTarget.style.background = 'transparent')}
         >
-          <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" style={{width: '20px'}} />
-          {loading ? 'Verificando...' : 'Acceso Rápido con Google'}
+          <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" style={{width: '18px'}} />
+          {loading ? 'Connecting...' : 'Continue with Google'}
         </button>
 
-        <p style={{ marginTop: '24px', fontSize: '13px', color: '#94a3b8' }}>
-          {isRegistering ? '¿Ya tienes una cuenta?' : '¿Aún no tienes licencia?'}
+        <p style={{ marginTop: '32px', fontSize: '0.875rem', color: '#64748b' }}>
+          {isRegistering ? 'Already have an account?' : "Don't have an account?"}
           <button 
             onClick={() => { setIsRegistering(!isRegistering); setErrorMsg(''); }}
-            style={{ background: 'none', border: 'none', color: '#22d3ee', fontWeight: 'bold', marginLeft: '6px', cursor: 'pointer' }}
+            style={{ background: 'none', border: 'none', color: '#3b82f6', fontWeight: '600', marginLeft: '6px', cursor: 'pointer' }}
+            onMouseOver={e => e.target.style.textDecoration = 'underline'}
+            onMouseOut={e => e.target.style.textDecoration = 'none'}
           >
-            {isRegistering ? 'Inicia Sesión aquí' : 'Crea una cuenta aquí'}
+            {isRegistering ? 'Log in' : 'Sign up'}
           </button>
         </p>
 
