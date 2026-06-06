@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { auth } from '@/lib/firebase';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 export default function Dashboard() {
   const [trades, setTrades] = useState([]);
@@ -11,7 +11,18 @@ export default function Dashboard() {
   const [apiKey, setApiKey] = useState(null);
   const [loadingKey, setLoadingKey] = useState(false);
   const [syncingHistory, setSyncingHistory] = useState(false);
+  const [successMsg, setSuccessMsg] = useState(null);
+  
   const router = useRouter();
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    if (searchParams.get('payment_success') === 'true') {
+      setSuccessMsg('¡Pago exitoso! Tu cuenta ahora es Premium. Haz clic en Generar Licencia para obtener tu API Key.');
+      // Clean up the URL
+      router.replace('/dashboard');
+    }
+  }, [searchParams, router]);
 
   const handleSyncHistory = () => {
     if (!user) return;
@@ -215,6 +226,13 @@ export default function Dashboard() {
         </div>
 
         {error && <div style={{ background: 'rgba(239, 68, 68, 0.1)', color: '#fca5a5', padding: '16px', borderRadius: '8px', border: '1px solid rgba(239, 68, 68, 0.2)', marginBottom: '24px' }}>Error: {error}</div>}
+
+        {successMsg && (
+          <div style={{ background: 'rgba(34, 197, 94, 0.1)', color: '#4ade80', padding: '16px', borderRadius: '8px', border: '1px solid rgba(34, 197, 94, 0.3)', marginBottom: '24px', display: 'flex', alignItems: 'center', gap: '12px', boxShadow: '0 0 15px rgba(34, 197, 94, 0.15)' }}>
+            <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            <span style={{ fontWeight: '600' }}>{successMsg}</span>
+          </div>
+        )}
 
         {/* Top Cards (License & Download) */}
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px', marginBottom: '24px' }}>
