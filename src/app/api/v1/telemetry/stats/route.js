@@ -9,12 +9,12 @@ if (!admin.apps.length) {
     const serviceAccount = JSON.parse(fs.readFileSync(keyPath, 'utf8'));
     admin.initializeApp({
       credential: admin.credential.cert(serviceAccount),
-      projectId: 'trading-brain-core-3410'
+      projectId: 'trading-brain-ai-app'
     });
   } else {
     admin.initializeApp({
       credential: admin.credential.applicationDefault(),
-      projectId: 'trading-brain-core-3410'
+      projectId: 'trading-brain-ai-app'
     });
   }
 }

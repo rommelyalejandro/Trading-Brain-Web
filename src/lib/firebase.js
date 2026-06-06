@@ -3,13 +3,13 @@ import { getAuth, GoogleAuthProvider } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyA0CPu41CFqeIl65f7HPgjZ3kIV7wG3OLM",
-  authDomain: "trading-brain-core-3410.firebaseapp.com",
-  projectId: "trading-brain-core-3410",
-  storageBucket: "trading-brain-core-3410.firebasestorage.app",
-  messagingSenderId: "975080504169",
-  appId: "1:975080504169:web:d88140e113ac09e5759bf8",
-  measurementId: "G-47DJ7TFL15"
+  apiKey: "AIzaSyDKrCNUoBOPAE0r6Y1p0aV4_3OGNrAUaPg",
+  authDomain: "trading-brain-ai-app.firebaseapp.com",
+  projectId: "trading-brain-ai-app",
+  storageBucket: "trading-brain-ai-app.firebasestorage.app",
+  messagingSenderId: "589942754758",
+  appId: "1:589942754758:web:227f533e2b9d5154a4f6c7",
+  measurementId: "G-CSRM8P856Y"
 };
 
 // Evita inicializar múltiples veces en Next.js

@@ -5,7 +5,7 @@ import admin from 'firebase-admin';
 if (!admin.apps.length) {
   admin.initializeApp({
     credential: admin.credential.applicationDefault(),
-    projectId: 'trading-brain-core-3410'
+    projectId: 'trading-brain-ai-app'
   });
 }
 
