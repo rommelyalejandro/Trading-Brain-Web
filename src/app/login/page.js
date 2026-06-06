@@ -96,7 +96,7 @@ export default function Login() {
         borderRadius: '24px', padding: '40px 30px', backdropFilter: 'blur(16px)',
         textAlign: 'center', boxShadow: '0 20px 40px rgba(0,0,0,0.4)'
       }}>
-        <div style={{ fontSize: '40px', marginBottom: '10px' }}>🧠</div>
+        <img src="/logo.png" alt="Trading Brain AI Logo" style={{ width: '80px', height: '80px', marginBottom: '16px', borderRadius: '50%', boxShadow: '0 0 20px rgba(34, 211, 238, 0.4)' }} />
         <h1 style={{ fontSize: '24px', fontWeight: '900', marginBottom: '8px', background: 'linear-gradient(90deg, #22d3ee, #a855f7)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
           Trading Brain AI
         </h1>
