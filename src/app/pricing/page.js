@@ -60,7 +60,7 @@ export default function PricingPage() {
       alias: "Cuentas simuladas ilimitadas. Prueba todo el potencial del sistema sin restricciones.",
       price: "$0.00",
       period: "/mes",
-      priceId: "price_free_activation",
+      priceId: "price_1TfSFK6tDIdDfbEszFmq5lCD",
       features: ["Super Copiadora Básica", "Solo Cuentas Simuladas (Sim101)", "Ideal para Forward Testing", "Activación única de por vida", "🔥 ACCESO DE POR VIDA: Big Trades y Absorciones Institucionales (Valorado en cientos de $)"],
       themeColor: "#94a3b8", // slate-400
       bgStyle: "rgba(16, 23, 38, 0.4)",
@@ -75,7 +75,7 @@ export default function PricingPage() {
       alias: "Trader Intermedio",
       price: "$3.99",
       period: "/mes",
-      priceId: "price_1TfOTP6tDIdDfbEsb0nhBLhb",
+      priceId: "price_1TfSFK6tDIdDfbEs6do365ck",
       features: ["Todo lo del plan Free", "Máx. 2 Cuentas Reales/Fondeo", "Copiado de Alta Frecuencia", "Multiplicadores Dinámicos"],
       themeColor: "#eab308", // yellow-500
       bgStyle: "rgba(16, 23, 38, 0.4)",
@@ -90,7 +90,7 @@ export default function PricingPage() {
       alias: "Fondeado Pro",
       price: "$9.99",
       period: "/mes",
-      priceId: "price_1TfOTQ6tDIdDfbEsPecBYM0b",
+      priceId: "price_1TfSFL6tDIdDfbEskBhJA4Ns",
       features: ["Todo lo del plan Gold", "Máx. 10 Cuentas Reales/Fondeo", "Soporte Prioritario 24/7", "Funciones Avanzadas de Riesgo (R/R)"],
       themeColor: "#f8fafc", // slate-50
       bgStyle: "rgba(16, 23, 38, 0.6)",
@@ -105,7 +105,7 @@ export default function PricingPage() {
       alias: "Master Cuántico",
       price: "$19.99",
       period: "/mes",
-      priceId: "price_1TfOTR6tDIdDfbEsUD24JVPY",
+      priceId: "price_1TfSFM6tDIdDfbEsRthXTYqB",
       features: ["Todo lo del plan Platinum", "Cuentas Reales ILIMITADAS", "Inteligencia Artificial Predictiva", "Latencia Ultra-Baja Dedicada"],
       themeColor: "#22c55e", // neon-green
       bgStyle: "rgba(10, 15, 28, 0.8)",
