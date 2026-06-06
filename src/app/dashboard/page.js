@@ -133,6 +133,25 @@ export default function Dashboard() {
   const uniqueTraders = new Set(trades.map(t => t.trader_id)).size;
   const totalLots = trades.reduce((acc, t) => acc + (t.lots || 0), 0);
 
+  const unlinkDevice = async () => {
+    if (!confirm('¿Estás seguro de que deseas desvincular tu NinjaTrader actual? Deberás reiniciar NinjaTrader para enlazar uno nuevo.')) return;
+    try {
+      setLoadingKey(true);
+      const token = await user.getIdToken();
+      const res = await fetch('/api/keys/unlink', { method: 'POST', headers: { 'Authorization': `Bearer ${token}` } });
+      const data = await res.json();
+      if (data.success) {
+        alert(data.message);
+      } else {
+        alert('Error: ' + data.error);
+      }
+    } catch (err) {
+      alert('Hubo un error de conexión.');
+    } finally {
+      setLoadingKey(false);
+    }
+  };
+
   if (!user) return null;
 
   return (
@@ -175,7 +194,14 @@ export default function Dashboard() {
 
       {/* API Key */}
       <div style={{ background: 'rgba(30, 41, 59, 0.4)', padding: '24px', borderRadius: '16px', border: '1px solid rgba(148, 163, 184, 0.1)', marginBottom: '40px' }}>
-        <h2 style={{ fontSize: '1.25rem', marginTop: 0, marginBottom: '16px' }}>🔑 Conexión al Cerebro Central</h2>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+            <h2 style={{ fontSize: '1.25rem', margin: 0 }}>🔑 Conexión al Cerebro Central</h2>
+            {apiKey && (
+                <button onClick={unlinkDevice} disabled={loadingKey} style={{ background: 'transparent', color: '#ef4444', border: '1px solid rgba(239, 68, 68, 0.5)', padding: '8px 16px', borderRadius: '8px', fontWeight: 'bold', cursor: 'pointer', fontSize: '0.875rem' }}>
+                  Desvincular Dispositivo (Reset)
+                </button>
+            )}
+        </div>
         {apiKey ? (
           <div style={{ display: 'flex', gap: '16px' }}>
             <input type="text" value={apiKey} readOnly style={{ flex: 1, background: 'rgba(0,0,0,0.5)', border: '1px solid rgba(255,255,255,0.1)', padding: '12px 16px', borderRadius: '8px', color: '#f8fafc', fontFamily: 'monospace' }} />
