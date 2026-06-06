@@ -1,19 +1,3 @@
-import { NextResponse } from 'next/server';
-import Stripe from 'stripe';
-import admin from 'firebase-admin';
-
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || 'sk_test_dummy_key_for_build_purposes');
-
-// Inicializar Firebase Admin SDK si no está inicializado
-if (!admin.apps.length) {
-  admin.initializeApp({
-    credential: admin.credential.applicationDefault(),
-    projectId: 'trading-brain-ai-app'
-  });
-}
-
-const db = admin.firestore();
-
 export async function POST(req) {
   const body = await req.text();
   const sig = req.headers.get('stripe-signature');
@@ -42,18 +26,25 @@ export async function POST(req) {
       
       if (userId) {
         // En este paso deberíamos mapear el plan, 
-        // pero por ahora asignaremos "Pro" o extraeremos del Line Item.
+        // pero por ahora asignaremos "Premium" o extraeremos del Line Item.
+        const assignedPlan = 'Premium'; // TODO: Mapear según el precio exacto
+        
+        // Generar una nueva API Key única con prefijo del plan
+        const randomHex = crypto.randomBytes(16).toString('hex');
+        const planPrefix = assignedPlan.toLowerCase();
+        const newApiKey = `${planPrefix}_user_${randomHex}`;
         
         await db.collection('users').doc(userId).set({
-          plan: 'Premium', // TODO: Mapear según el precio exacto
+          plan: assignedPlan,
           subscription_status: 'active',
           stripe_customer_id: session.customer,
           subscription_id: session.subscription,
-          label: 'Premium', // Sobrescribir etiqueta Trial
+          label: assignedPlan, // Sobrescribir etiqueta Trial
+          api_key: newApiKey, // ASIGNAR API KEY INMEDIATAMENTE
           updated_at: admin.firestore.FieldValue.serverTimestamp()
         }, { merge: true });
         
-        console.log(`Usuario ${userId} actualizado a plan Premium.`);
+        console.log(`Usuario ${userId} actualizado a plan ${assignedPlan} con API Key generada.`);
       }
       break;
       

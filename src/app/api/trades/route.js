@@ -1,27 +1,10 @@
 import { NextResponse } from 'next/server';
-import admin from 'firebase-admin';
+import { admin, db } from '@/lib/firebase-admin';
 import * as fs from 'fs';
 import * as path from 'path';
 
 // Inicializar Firebase Admin SDK si no está inicializado
-if (!admin.apps.length) {
-  // Intentar cargar la Service Account Key si existe
-  const keyPath = path.resolve(process.cwd(), 'sa-key.json');
-  if (fs.existsSync(keyPath)) {
-    const serviceAccount = JSON.parse(fs.readFileSync(keyPath, 'utf8'));
-    admin.initializeApp({
-      credential: admin.credential.cert(serviceAccount),
-      projectId: 'trading-brain-ai-app'
-    });
-  } else {
-    admin.initializeApp({
-      credential: admin.credential.applicationDefault(),
-      projectId: 'trading-brain-ai-app'
-    });
-  }
-}
 
-const db = admin.firestore();
 
 // GET endpoint para obtener los trades recientes
 export async function GET() {

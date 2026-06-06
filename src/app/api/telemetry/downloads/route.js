@@ -1,6 +1,3 @@
-import { db } from '@/lib/firebase';
-import { collection, addDoc } from 'firebase/firestore';
-
 export async function POST(req) {
   try {
     const { module, userId } = await req.json();

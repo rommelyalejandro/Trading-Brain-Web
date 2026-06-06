@@ -1,15 +1,8 @@
 import { NextResponse } from 'next/server';
-import admin from 'firebase-admin';
+import { admin, db } from '@/lib/firebase-admin';
 
 // Inicializar Firebase Admin SDK si no está inicializado
-if (!admin.apps.length) {
-  admin.initializeApp({
-    credential: admin.credential.applicationDefault(),
-    projectId: 'trading-brain-ai-app'
-  });
-}
 
-const db = admin.firestore();
 
 export async function POST(req) {
   try {
