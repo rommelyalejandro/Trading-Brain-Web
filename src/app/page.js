@@ -5,7 +5,7 @@ import { useState } from 'react';
 const dict = {
   en: {
     features: "Features", testimonials: "Testimonials", faq: "FAQ",
-    login: "Log In", getFunded: "Get Funded",
+    login: "Log In", getFunded: "Get Free License",
     badge: "The Ultimate Anti-Blowout Shield",
     title1: "Never blow another", title2: "Prop Account", title3: "again.",
     desc: "The first AI-driven trading ecosystem designed to protect your capital. Ultra-fast local trade copier, automated risk management, and institutional tools included.",
@@ -16,7 +16,7 @@ const dict = {
   },
   es: {
     features: "Funciones", testimonials: "Testimonios", faq: "FAQ",
-    login: "Iniciar Sesión", getFunded: "Obtener Fondeo",
+    login: "Iniciar Sesión", getFunded: "Obtén tu Licencia Gratis",
     badge: "El Escudo Anti-Quiebres Definitivo",
     title1: "Nunca vuelvas a quemar", title2: "una Cuenta de Fondeo", title3: ".",
     desc: "El primer ecosistema de Trading con Inteligencia Artificial diseñado para proteger tu capital. Copiadora ultrarrápida local, gestión de riesgo automática y herramientas institucionales.",

@@ -63,10 +63,10 @@ export default function PricingPage() {
       priceId: "price_free_activation",
       features: ["Super Copiadora Básica", "Solo Cuentas Simuladas (Sim101)", "Ideal para Forward Testing", "Activación única de por vida", "🔥 ACCESO DE POR VIDA: Big Trades y Absorciones Institucionales (Valorado en cientos de $)"],
       themeColor: "#94a3b8", // slate-400
-      bgStyle: "rgba(30, 41, 59, 0.4)",
-      borderStyle: "1px solid rgba(148, 163, 184, 0.3)",
-      buttonBg: "#e2e8f0",
-      buttonColor: "#0f172a",
+      bgStyle: "rgba(16, 23, 38, 0.4)",
+      borderStyle: "1px solid rgba(255, 255, 255, 0.05)",
+      buttonBg: "#1e293b",
+      buttonColor: "#f8fafc",
       highlight: false,
       glow: false
     },
@@ -78,7 +78,7 @@ export default function PricingPage() {
       priceId: "price_1TfOTP6tDIdDfbEsb0nhBLhb",
       features: ["Todo lo del plan Free", "Máx. 2 Cuentas Reales/Fondeo", "Copiado de Alta Frecuencia", "Multiplicadores Dinámicos"],
       themeColor: "#eab308", // yellow-500
-      bgStyle: "rgba(30, 41, 59, 0.4)",
+      bgStyle: "rgba(16, 23, 38, 0.4)",
       borderStyle: "1px solid rgba(234, 179, 8, 0.3)",
       buttonBg: "linear-gradient(90deg, #eab308 0%, #facc15 100%)",
       buttonColor: "#422006",
@@ -93,7 +93,7 @@ export default function PricingPage() {
       priceId: "price_1TfOTQ6tDIdDfbEsPecBYM0b",
       features: ["Todo lo del plan Gold", "Máx. 10 Cuentas Reales/Fondeo", "Soporte Prioritario 24/7", "Funciones Avanzadas de Riesgo (R/R)"],
       themeColor: "#f8fafc", // slate-50
-      bgStyle: "rgba(30, 41, 59, 0.6)",
+      bgStyle: "rgba(16, 23, 38, 0.6)",
       borderStyle: "1px solid rgba(248, 250, 252, 0.4)",
       buttonBg: "linear-gradient(90deg, #e2e8f0 0%, #cbd5e1 100%)",
       buttonColor: "#0f172a",
@@ -107,11 +107,11 @@ export default function PricingPage() {
       period: "/mes",
       priceId: "price_1TfOTR6tDIdDfbEsUD24JVPY",
       features: ["Todo lo del plan Platinum", "Cuentas Reales ILIMITADAS", "Inteligencia Artificial Predictiva", "Latencia Ultra-Baja Dedicada"],
-      themeColor: "#06b6d4", // cyan-500
-      bgStyle: "rgba(15, 23, 42, 0.8)",
-      borderStyle: "1px solid rgba(6, 182, 212, 0.6)",
-      buttonBg: "linear-gradient(90deg, #0891b2 0%, #0284c7 100%)",
-      buttonColor: "#ffffff",
+      themeColor: "#22c55e", // neon-green
+      bgStyle: "rgba(10, 15, 28, 0.8)",
+      borderStyle: "1px solid rgba(34, 197, 94, 0.6)",
+      buttonBg: "linear-gradient(90deg, #16a34a 0%, #22c55e 100%)",
+      buttonColor: "#022c22",
       highlight: false,
       glow: true
     }
@@ -120,10 +120,10 @@ export default function PricingPage() {
   return (
     <div style={{
       minHeight: '100vh',
-      backgroundColor: '#020617', // slate-950
-      color: '#f8fafc', // slate-50
+      backgroundColor: '#0a0f1c', // deep space
+      color: '#f8fafc',
       padding: '80px 16px',
-      fontFamily: 'system-ui, -apple-system, sans-serif'
+      fontFamily: '"Inter", sans-serif'
     }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
         <div style={{ textAlign: 'center', marginBottom: '64px' }}>
@@ -132,11 +132,9 @@ export default function PricingPage() {
             fontWeight: '900',
             letterSpacing: '-0.025em',
             margin: '0 0 16px 0',
-            background: 'linear-gradient(90deg, #60a5fa 0%, #67e8f9 100%)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent'
+            color: '#ffffff'
           }}>
-            Licencias de Trading Brain AI
+            Licencias de <span style={{ color: '#22c55e' }}>Trading Brain AI</span>
           </h2>
           <p style={{
             maxWidth: '670px',
