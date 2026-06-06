@@ -1,45 +1,61 @@
-export async function POST(req) {
+import { NextResponse } from 'next/server';
+import Stripe from 'stripe';
+import { adminAuth } from '@/lib/firebase-admin';
+
+// Initialize Stripe with the secret key from environment variables
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
+  apiVersion: '2023-10-16', // Use the latest API version or your account's default
+});
+
+export async function POST(request) {
   try {
-    const authHeader = req.headers.get('authorization');
+    const authHeader = request.headers.get('authorization');
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
-      return NextResponse.json({ success: false, error: 'No autorizado' }, { status: 401 });
+      return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
     }
-    
-    // Validar usuario
+
     const token = authHeader.split('Bearer ')[1];
     let decodedToken;
     try {
-      decodedToken = await admin.auth().verifyIdToken(token);
-    } catch (e) {
-      // Intentar re-inicializar app si es necesario o manejar el error
-      return NextResponse.json({ success: false, error: 'Token inválido' }, { status: 401 });
+      decodedToken = await adminAuth.verifyIdToken(token);
+    } catch (error) {
+      return NextResponse.json({ success: false, error: 'Invalid token' }, { status: 401 });
     }
 
-    const { priceId } = await req.json();
+    const { priceId, mode = 'subscription' } = await request.json();
 
     if (!priceId) {
-      return NextResponse.json({ success: false, error: 'Price ID requerido' }, { status: 400 });
+      return NextResponse.json({ success: false, error: 'Price ID is required' }, { status: 400 });
     }
 
-    // Crear sesión de Stripe Checkout
+    const userId = decodedToken.uid;
+    const email = decodedToken.email;
+
+    // Build the checkout session URL dynamically based on where the app is running
+    const origin = request.headers.get('origin') || 'https://trading-brain-ai.com';
+
+    // Create a Stripe Checkout Session
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
-      mode: 'subscription',
-      customer_email: decodedToken.email,
-      client_reference_id: decodedToken.uid, // Guardamos el UID para saber quién pagó
+      customer_email: email,
+      client_reference_id: userId, // CRITICAL: This is how we map the payment back to the Firebase user in the webhook
       line_items: [
         {
           price: priceId,
           quantity: 1,
         },
       ],
-      success_url: `${req.headers.get('origin')}/dashboard?checkout=success`,
-      cancel_url: `${req.headers.get('origin')}/pricing?checkout=canceled`,
+      mode: mode, // 'payment' for one-time (Free plan), 'subscription' for the rest
+      success_url: `${origin}/dashboard?payment_success=true&session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${origin}/pricing?payment_canceled=true`,
+      metadata: {
+        userId: userId,
+      }
     });
 
     return NextResponse.json({ success: true, url: session.url });
   } catch (error) {
-    console.error('Error creando checkout session:', error);
+    console.error('Stripe checkout error:', error);
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });
   }
 }

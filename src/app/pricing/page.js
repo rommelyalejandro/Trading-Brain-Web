@@ -20,7 +20,7 @@ export default function PricingPage() {
     return () => unsubscribe();
   }, []);
 
-  const handleSubscribe = async (priceId) => {
+  const handleSubscribe = async (priceId, mode) => {
     if (!user) {
       router.push('/login');
       return;
@@ -36,7 +36,7 @@ export default function PricingPage() {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
         },
-        body: JSON.stringify({ priceId })
+        body: JSON.stringify({ priceId, mode })
       });
       
       const data = await res.json();
@@ -281,7 +281,7 @@ export default function PricingPage() {
 
               <div style={{ position: 'relative', zIndex: 10, marginTop: 'auto' }}>
                 <button
-                  onClick={() => handleSubscribe(plan.priceId)}
+                  onClick={() => handleSubscribe(plan.priceId, plan.name === 'Free' ? 'payment' : 'subscription')}
                   disabled={loading}
                   style={{
                     width: '100%',

@@ -1,61 +1,57 @@
-export async function POST(req) {
-  const body = await req.text();
-  const sig = req.headers.get('stripe-signature');
-  const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
+import { NextResponse } from 'next/server';
+import Stripe from 'stripe';
+import { adminDb } from '@/lib/firebase-admin';
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
+  apiVersion: '2023-10-16',
+});
+
+const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
+
+export async function POST(request) {
+  const payload = await request.text();
+  const signature = request.headers.get('stripe-signature');
 
   let event;
 
   try {
-    if (endpointSecret) {
-      event = stripe.webhooks.constructEvent(body, sig, endpointSecret);
-    } else {
-      event = JSON.parse(body);
-    }
+    event = stripe.webhooks.constructEvent(payload, signature, endpointSecret);
   } catch (err) {
-    console.error('Webhook Error:', err.message);
+    console.error(`Webhook signature verification failed: ${err.message}`);
     return NextResponse.json({ error: `Webhook Error: ${err.message}` }, { status: 400 });
   }
 
-  // Manejar el evento
-  switch (event.type) {
-    case 'checkout.session.completed':
-      const session = event.data.object;
-      
-      // Obtener el UID del usuario (pasado en client_reference_id)
-      const userId = session.client_reference_id;
-      
-      if (userId) {
-        // En este paso deberíamos mapear el plan, 
-        // pero por ahora asignaremos "Premium" o extraeremos del Line Item.
-        const assignedPlan = 'Premium'; // TODO: Mapear según el precio exacto
-        
-        // Generar una nueva API Key única con prefijo del plan
-        const randomHex = crypto.randomBytes(16).toString('hex');
-        const planPrefix = assignedPlan.toLowerCase();
-        const newApiKey = `${planPrefix}_user_${randomHex}`;
-        
-        await db.collection('users').doc(userId).set({
-          plan: assignedPlan,
-          subscription_status: 'active',
-          stripe_customer_id: session.customer,
-          subscription_id: session.subscription,
-          label: assignedPlan, // Sobrescribir etiqueta Trial
-          api_key: newApiKey, // ASIGNAR API KEY INMEDIATAMENTE
-          updated_at: admin.firestore.FieldValue.serverTimestamp()
-        }, { merge: true });
-        
-        console.log(`Usuario ${userId} actualizado a plan ${assignedPlan} con API Key generada.`);
-      }
-      break;
-      
-    case 'invoice.payment_failed':
-      // Manejar pagos fallidos
-      const failedInvoice = event.data.object;
-      // Actualizar en BD a inactivo o suspendido...
-      break;
+  // Handle the checkout.session.completed event
+  if (event.type === 'checkout.session.completed') {
+    const session = event.data.object;
+    
+    // Retrieve the user ID we passed in client_reference_id
+    const userId = session.client_reference_id || session.metadata?.userId;
 
-    default:
-      console.log(`Evento no manejado: ${event.type}`);
+    if (userId) {
+      try {
+        // Fetch the user's document
+        const userRef = adminDb.collection('users').doc(userId);
+        
+        // Update user status
+        await userRef.set({
+          stripeCustomerId: session.customer,
+          subscriptionStatus: 'active',
+          plan: 'paid', // Could be dynamic based on the price ID mapped from Stripe
+          updatedAt: new Date().toISOString()
+        }, { merge: true });
+
+        console.log(`Successfully provisioned license for user: ${userId}`);
+
+        // TODO: Automatically generate the NinjaTrader API Key here or let the Dashboard handle it on load if subscriptionStatus === 'active'
+
+      } catch (dbError) {
+        console.error('Error updating Firestore:', dbError);
+        return NextResponse.json({ error: 'Database update failed' }, { status: 500 });
+      }
+    } else {
+      console.warn('Checkout session completed but no userId found in client_reference_id or metadata');
+    }
   }
 
   return NextResponse.json({ received: true });
