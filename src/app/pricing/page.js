@@ -57,9 +57,9 @@ export default function PricingPage() {
   const plans = [
     {
       name: "Free",
-      alias: "Simulaciones",
-      price: "$1.99",
-      period: "único",
+      alias: "Simulaciones | $1.99 pago único de activación",
+      price: "$0.00",
+      period: "sin pago mensual",
       priceId: "price_free_activation",
       features: ["Super Copiadora Básica", "Solo Cuentas Simuladas (Sim101)", "Ideal para Forward Testing", "Activación única de por vida"],
       themeColor: "#94a3b8", // slate-400
