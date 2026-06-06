@@ -61,7 +61,7 @@ export default function PricingPage() {
       price: "$0.00",
       period: "sin pago mensual",
       priceId: "price_free_activation",
-      features: ["Super Copiadora Básica", "Solo Cuentas Simuladas (Sim101)", "Ideal para Forward Testing", "Activación única de por vida"],
+      features: ["Super Copiadora Básica", "Solo Cuentas Simuladas (Sim101)", "Ideal para Forward Testing", "Activación única de por vida", "🔥 ACCESO DE POR VIDA: Big Trades y Absorciones Institucionales (Valorado en cientos de $)"],
       themeColor: "#94a3b8", // slate-400
       bgStyle: "rgba(30, 41, 59, 0.4)",
       borderStyle: "1px solid rgba(148, 163, 184, 0.3)",
@@ -75,7 +75,7 @@ export default function PricingPage() {
       alias: "Trader Intermedio",
       price: "$3.99",
       period: "/mes",
-      priceId: "price_1TdB6I6tDIdDfbEsgE6SXCQI",
+      priceId: "price_1TfOTP6tDIdDfbEsb0nhBLhb",
       features: ["Todo lo del plan Free", "Máx. 2 Cuentas Reales/Fondeo", "Copiado de Alta Frecuencia", "Multiplicadores Dinámicos"],
       themeColor: "#eab308", // yellow-500
       bgStyle: "rgba(30, 41, 59, 0.4)",
@@ -90,7 +90,7 @@ export default function PricingPage() {
       alias: "Fondeado Pro",
       price: "$9.99",
       period: "/mes",
-      priceId: "price_1TdB6I6tDIdDfbEsavRzis2v",
+      priceId: "price_1TfOTQ6tDIdDfbEsPecBYM0b",
       features: ["Todo lo del plan Gold", "Máx. 10 Cuentas Reales/Fondeo", "Soporte Prioritario 24/7", "Funciones Avanzadas de Riesgo (R/R)"],
       themeColor: "#f8fafc", // slate-50
       bgStyle: "rgba(30, 41, 59, 0.6)",
@@ -105,7 +105,7 @@ export default function PricingPage() {
       alias: "Master Cuántico",
       price: "$19.99",
       period: "/mes",
-      priceId: "price_1TdB6J6tDIdDfbEsjOhyGgp9",
+      priceId: "price_1TfOTR6tDIdDfbEsUD24JVPY",
       features: ["Todo lo del plan Platinum", "Cuentas Reales ILIMITADAS", "Inteligencia Artificial Predictiva", "Latencia Ultra-Baja Dedicada"],
       themeColor: "#06b6d4", // cyan-500
       bgStyle: "rgba(15, 23, 42, 0.8)",
@@ -241,31 +241,43 @@ export default function PricingPage() {
                   padding: 0,
                   margin: '0 0 32px 0'
                 }}>
-                  {plan.features.map((feature, fIndex) => (
+                  {plan.features.map((feature, fIndex) => {
+                    const isHot = feature.includes('🔥');
+                    return (
                     <li key={fIndex} style={{
                       display: 'flex',
                       alignItems: 'flex-start',
-                      marginBottom: '16px'
+                      marginBottom: '16px',
+                      background: isHot ? 'linear-gradient(90deg, rgba(234, 179, 8, 0.1) 0%, rgba(249, 115, 22, 0.1) 100%)' : 'transparent',
+                      padding: isHot ? '12px' : '0',
+                      borderRadius: isHot ? '12px' : '0',
+                      border: isHot ? '1px solid rgba(249, 115, 22, 0.3)' : 'none',
+                      boxShadow: isHot ? '0 4px 15px rgba(249, 115, 22, 0.1)' : 'none'
                     }}>
-                      <svg style={{
-                        height: '24px',
-                        width: '24px',
-                        flexShrink: 0,
-                        color: plan.glow ? '#22d3ee' : '#94a3b8'
-                      }} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                      </svg>
+                      {isHot ? (
+                        <span style={{ flexShrink: 0, fontSize: '1.5rem', marginTop: '-4px' }}>🎁</span>
+                      ) : (
+                        <svg style={{
+                          height: '24px',
+                          width: '24px',
+                          flexShrink: 0,
+                          color: plan.glow ? '#22d3ee' : '#94a3b8'
+                        }} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                      )}
                       <span style={{
                         marginLeft: '12px',
-                        fontSize: '0.875rem',
-                        color: '#cbd5e1',
-                        fontWeight: '500',
-                        lineHeight: '1.5'
+                        fontSize: isHot ? '0.95rem' : '0.875rem',
+                        color: isHot ? '#fed7aa' : '#cbd5e1',
+                        fontWeight: isHot ? '800' : '500',
+                        lineHeight: '1.5',
+                        textShadow: isHot ? '0 2px 4px rgba(0,0,0,0.5)' : 'none'
                       }}>
-                        {feature}
+                        {feature.replace('🔥 ', '')}
                       </span>
                     </li>
-                  ))}
+                  )})}
                 </ul>
               </div>
 
