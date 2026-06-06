@@ -8,103 +8,99 @@ export default function LandingPage() {
   return (
     <div style={{
       minHeight: '100vh',
-      backgroundColor: '#020617', // slate-950
+      backgroundColor: '#0a0f1c', // Deep space background matching dashboard
       color: '#f8fafc',
-      fontFamily: 'system-ui, -apple-system, sans-serif',
+      fontFamily: '"Inter", sans-serif',
       position: 'relative',
-      overflow: 'hidden'
+      overflowX: 'hidden'
     }}>
-      {/* Background Glow Effects (Quantum Glassmorphism) */}
-      <div style={{
-        position: 'absolute', top: '-10%', left: '-10%', width: '500px', height: '500px',
-        background: 'radial-gradient(circle, rgba(6,182,212,0.15) 0%, rgba(2,6,23,0) 70%)',
-        borderRadius: '50%', filter: 'blur(60px)', zIndex: 0
-      }} />
-      <div style={{
-        position: 'absolute', bottom: '-10%', right: '-5%', width: '600px', height: '600px',
-        background: 'radial-gradient(circle, rgba(168,85,247,0.1) 0%, rgba(2,6,23,0) 70%)',
-        borderRadius: '50%', filter: 'blur(80px)', zIndex: 0
-      }} />
+      {/* Subtle Background Elements */}
+      <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '500px', background: 'radial-gradient(ellipse at top, rgba(34, 211, 238, 0.05) 0%, rgba(10, 15, 28, 0) 70%)', pointerEvents: 'none' }} />
 
       {/* Navigation Bar */}
       <nav style={{
-        position: 'relative', zIndex: 10, display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-        padding: '24px 48px', borderBottom: '1px solid rgba(255,255,255,0.05)',
-        background: 'rgba(2, 6, 23, 0.4)', backdropFilter: 'blur(12px)'
+        position: 'relative', zIndex: 50, display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+        padding: '24px 64px', borderBottom: '1px solid rgba(255,255,255,0.03)',
+        background: '#0b101e' // Matching dashboard sidebar
       }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-          <Image src="/logo.png" alt="Trading Brain AI Logo" width={40} height={40} style={{ borderRadius: '8px' }} />
-          <span style={{ fontSize: '1.25rem', fontWeight: '900', letterSpacing: '1px', background: 'linear-gradient(90deg, #22d3ee, #a855f7)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-            TRADING BRAIN AI
+        {/* Prominent Logo Area */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '16px', cursor: 'pointer' }}>
+          <img src="/icon.png" alt="Trading Brain AI Logo" style={{ width: '48px', height: '48px', filter: 'drop-shadow(0 0 10px rgba(34, 211, 238, 0.3))' }} />
+          <span style={{ fontSize: '1.5rem', fontWeight: '900', letterSpacing: '-0.5px', color: '#f8fafc' }}>
+            TRADING BRAIN <span style={{ color: '#3b82f6' }}>AI</span>
           </span>
         </div>
-        <div style={{ display: 'flex', gap: '16px' }}>
+        
+        <div style={{ display: 'flex', gap: '32px', alignItems: 'center', display: 'none', '@media (min-width: 768px)': { display: 'flex' } }}>
+          <span style={{ color: '#94a3b8', fontSize: '0.875rem', fontWeight: '600', cursor: 'pointer', transition: 'color 0.2s' }} onMouseOver={e => e.target.style.color = '#f8fafc'} onMouseOut={e => e.target.style.color = '#94a3b8'}>Features</span>
+          <span style={{ color: '#94a3b8', fontSize: '0.875rem', fontWeight: '600', cursor: 'pointer', transition: 'color 0.2s' }} onMouseOver={e => e.target.style.color = '#f8fafc'} onMouseOut={e => e.target.style.color = '#94a3b8'}>Testimonials</span>
+          <span style={{ color: '#94a3b8', fontSize: '0.875rem', fontWeight: '600', cursor: 'pointer', transition: 'color 0.2s' }} onMouseOver={e => e.target.style.color = '#f8fafc'} onMouseOut={e => e.target.style.color = '#94a3b8'}>FAQ</span>
+        </div>
+
+        <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
           <button onClick={() => router.push('/login')} style={{
-            background: 'transparent', color: '#cbd5e1', border: 'none', padding: '10px 20px', fontSize: '1rem', fontWeight: '600', cursor: 'pointer', transition: 'color 0.2s'
-          }} onMouseOver={e => e.target.style.color = '#fff'} onMouseOut={e => e.target.style.color = '#cbd5e1'}>
-            Iniciar Sesión
+            background: 'transparent', color: '#f8fafc', border: 'none', padding: '10px 20px', fontSize: '0.875rem', fontWeight: '700', cursor: 'pointer'
+          }}>
+            Log In
           </button>
           <button onClick={() => router.push('/pricing')} style={{
-            background: 'linear-gradient(90deg, #06b6d4 0%, #3b82f6 100%)', color: 'white', border: 'none', padding: '10px 24px', borderRadius: '99px', fontSize: '1rem', fontWeight: '700', cursor: 'pointer', boxShadow: '0 4px 15px rgba(6,182,212,0.3)', transition: 'transform 0.2s'
-          }} onMouseOver={e => e.target.style.transform = 'scale(1.05)'} onMouseOut={e => e.target.style.transform = 'scale(1)'}>
-            Ver Planes
+            background: '#3b82f6', color: 'white', border: 'none', padding: '12px 28px', borderRadius: '6px', fontSize: '0.875rem', fontWeight: '700', cursor: 'pointer', boxShadow: '0 0 20px rgba(59, 130, 246, 0.3)', transition: 'background 0.2s'
+          }} onMouseOver={e => e.target.style.background = '#2563eb'} onMouseOut={e => e.target.style.background = '#3b82f6'}>
+            Get Funded
           </button>
         </div>
       </nav>
 
       {/* Hero Section */}
-      <main style={{ position: 'relative', zIndex: 10, maxWidth: '1200px', margin: '0 auto', padding: '100px 24px', textAlign: 'center' }}>
+      <main style={{ position: 'relative', zIndex: 10, maxWidth: '1200px', margin: '0 auto', padding: '120px 24px 80px 24px', textAlign: 'center' }}>
         <div style={{
-          display: 'inline-block', padding: '6px 16px', background: 'rgba(34, 211, 238, 0.1)', border: '1px solid rgba(34, 211, 238, 0.3)',
-          borderRadius: '99px', color: '#67e8f9', fontSize: '0.875rem', fontWeight: '700', letterSpacing: '1px', marginBottom: '32px', textTransform: 'uppercase'
+          display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '8px 16px', background: '#101726', border: '1px solid rgba(255, 255, 255, 0.05)',
+          borderRadius: '99px', color: '#94a3b8', fontSize: '0.75rem', fontWeight: '700', letterSpacing: '1px', textTransform: 'uppercase', marginBottom: '40px'
         }}>
-          🛡️ El Escudo Anti-Quiebres Definitivo
+          <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#22c55e', boxShadow: '0 0 8px #22c55e' }}></span>
+          The Ultimate Anti-Blowout Shield
         </div>
         
-        <h1 style={{ fontSize: '4.5rem', fontWeight: '900', lineHeight: '1.1', marginBottom: '24px', letterSpacing: '-0.02em' }}>
-          Nunca más quemarás una <br/>
-          <span style={{ background: 'linear-gradient(90deg, #22d3ee, #a855f7)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Cuenta de Fondeo</span> por error humano.
+        <h1 style={{ fontSize: '5rem', fontWeight: '900', lineHeight: '1.05', marginBottom: '24px', letterSpacing: '-0.03em', color: '#ffffff' }}>
+          Never blow another <br/>
+          <span style={{ color: '#3b82f6' }}>Prop Account</span> again.
         </h1>
         
-        <p style={{ fontSize: '1.25rem', color: '#94a3b8', maxWidth: '700px', margin: '0 auto 48px auto', lineHeight: '1.6' }}>
-          El primer ecosistema de Trading con Inteligencia Artificial diseñado para proteger tu capital. Copiadora ultra rápida, cálculo de lotajes automático y herramientas institucionales de Order Flow (Big Trades & Absorciones) incluidas de por vida.
+        <p style={{ fontSize: '1.125rem', color: '#94a3b8', maxWidth: '600px', margin: '0 auto 48px auto', lineHeight: '1.7', fontWeight: '400' }}>
+          The first AI-driven trading ecosystem designed to protect your capital. Ultra-fast local trade copier, automated risk management, and institutional tools included.
         </p>
         
-        <div style={{ display: 'flex', gap: '24px', justifyContent: 'center' }}>
+        <div style={{ display: 'flex', gap: '16px', justifyContent: 'center' }}>
           <button onClick={() => router.push('/pricing')} style={{
-            background: 'linear-gradient(90deg, #22d3ee 0%, #a855f7 100%)', color: 'white', border: 'none', padding: '16px 40px', borderRadius: '12px', fontSize: '1.125rem', fontWeight: '800', cursor: 'pointer', boxShadow: '0 10px 25px rgba(168,85,247,0.3)', transition: 'transform 0.2s'
+            background: 'linear-gradient(90deg, #facc15, #eab308)', color: '#451a03', border: 'none', padding: '16px 40px', borderRadius: '8px', fontSize: '1rem', fontWeight: '800', cursor: 'pointer', boxShadow: '0 0 25px rgba(234, 179, 8, 0.3)', transition: 'transform 0.2s'
           }} onMouseOver={e => e.target.style.transform = 'translateY(-2px)'} onMouseOut={e => e.target.style.transform = 'translateY(0)'}>
-            Comenzar Prueba (Plan Free)
+            Start Free Trial
           </button>
           <button onClick={() => router.push('/dashboard')} style={{
-            background: 'rgba(30, 41, 59, 0.5)', color: '#f8fafc', border: '1px solid rgba(255,255,255,0.1)', backdropFilter: 'blur(10px)', padding: '16px 40px', borderRadius: '12px', fontSize: '1.125rem', fontWeight: '700', cursor: 'pointer', transition: 'background 0.2s'
-          }} onMouseOver={e => e.target.style.background = 'rgba(30, 41, 59, 0.8)'} onMouseOut={e => e.target.style.background = 'rgba(30, 41, 59, 0.5)'}>
-            Ir a mi Bitácora (Login)
+            background: 'transparent', color: '#f8fafc', border: '1px solid rgba(255,255,255,0.2)', padding: '16px 40px', borderRadius: '8px', fontSize: '1rem', fontWeight: '700', cursor: 'pointer', transition: 'background 0.2s'
+          }} onMouseOver={e => e.target.style.background = 'rgba(255,255,255,0.05)'} onMouseOut={e => e.target.style.background = 'transparent'}>
+            Go to Dashboard
           </button>
         </div>
       </main>
 
-      {/* Feature Cards (Glassmorphism) */}
-      <section style={{ position: 'relative', zIndex: 10, maxWidth: '1200px', margin: '0 auto 100px auto', padding: '0 24px' }}>
-        <h2 style={{ textAlign: 'center', fontSize: '2.5rem', fontWeight: '900', marginBottom: '48px', color: '#f8fafc' }}>
-          Tus Nuevos Superpoderes
-        </h2>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '32px' }}>
+      {/* Feature Cards (Prop Firm Style) */}
+      <section style={{ position: 'relative', zIndex: 10, maxWidth: '1200px', margin: '0 auto 120px auto', padding: '0 24px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '24px' }}>
           {[
-            { icon: '⚡', title: 'SuperCopier Ultra-Rápido', desc: 'Replica tus operaciones a múltiples cuentas reales en milisegundos. Sin retrasos ni bloqueos.' },
-            { icon: '📓', title: 'Bitácora Inteligente', desc: 'Registra tus operaciones automáticamente, analiza tu psicología (Tiltmeter) y descubre tu ventaja matemática real.' },
-            { icon: '🐋', title: 'Indicador: Big Trades', desc: 'Detecta en tiempo real las órdenes institucionales gigantes y sigue el rastro del dinero profesional.' },
-            { icon: '🧲', title: 'Indicador: Absorciones', desc: 'Visualiza exactamente dónde el mercado está frenando el precio e identifica reversiones de altísima probabilidad.' },
-            { icon: '🛡️', title: 'Escudo Risk/Reward', desc: 'Si tu riesgo excede tu límite predefinido, el sistema cambia automáticamente a Micro contratos para protegerte.' },
-            { icon: '🔮', title: 'Más Superpoderes IA...', desc: 'Nuevos indicadores, detección de patrones y simuladores de rentabilidad en constante desarrollo.' }
+            { icon: '⚡', title: 'Ultra-Fast SuperCopier', desc: 'Replicate your trades across multiple real accounts in milliseconds. Zero latency, zero lockups.' },
+            { icon: '📓', title: 'Smart Analytics Log', desc: 'Automatically record your trades, analyze your psychology (Tiltmeter), and discover your real mathematical edge.' },
+            { icon: '🛡️', title: 'Risk/Reward Shield', desc: 'If your risk exceeds your predefined limit, the system automatically switches to Micro contracts to protect you.' }
           ].map((feat, i) => (
             <div key={i} style={{
-              background: 'rgba(30, 41, 59, 0.4)', border: '1px solid rgba(148, 163, 184, 0.1)', borderRadius: '24px', padding: '32px',
-              backdropFilter: 'blur(16px)', transition: 'transform 0.3s, border-color 0.3s', cursor: 'default'
-            }} onMouseOver={e => { e.currentTarget.style.transform = 'translateY(-10px)'; e.currentTarget.style.borderColor = 'rgba(34, 211, 238, 0.4)' }} onMouseOut={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.borderColor = 'rgba(148, 163, 184, 0.1)' }}>
-              <div style={{ fontSize: '2.5rem', marginBottom: '20px' }}>{feat.icon}</div>
+              background: '#101726', border: '1px solid rgba(255, 255, 255, 0.03)', borderRadius: '16px', padding: '40px',
+              transition: 'transform 0.3s, border-color 0.3s', cursor: 'default'
+            }} onMouseOver={e => { e.currentTarget.style.transform = 'translateY(-5px)'; e.currentTarget.style.borderColor = 'rgba(59, 130, 246, 0.5)' }} onMouseOut={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.03)' }}>
+              <div style={{ fontSize: '2rem', marginBottom: '24px', background: 'rgba(59, 130, 246, 0.1)', width: '64px', height: '64px', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '12px' }}>
+                {feat.icon}
+              </div>
               <h3 style={{ fontSize: '1.25rem', fontWeight: '800', marginBottom: '12px', color: '#f8fafc' }}>{feat.title}</h3>
-              <p style={{ color: '#94a3b8', lineHeight: '1.6', fontSize: '0.95rem' }}>{feat.desc}</p>
+              <p style={{ color: '#64748b', lineHeight: '1.7', fontSize: '0.9rem', margin: 0 }}>{feat.desc}</p>
             </div>
           ))}
         </div>
