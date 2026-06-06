@@ -16,15 +16,31 @@ export default function Dashboard() {
   const router = useRouter();
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
+    if (typeof window !== 'undefined' && user) {
       const urlParams = new URLSearchParams(window.location.search);
-      if (urlParams.get('payment_success') === 'true') {
-        setSuccessMsg('¡Pago exitoso! Tu cuenta ahora es Premium. Haz clic en Generar Licencia para obtener tu API Key.');
-        // Clean up the URL
-        router.replace('/dashboard');
+      const isSuccess = urlParams.get('payment_success');
+      const sessionId = urlParams.get('session_id');
+
+      if (isSuccess === 'true' && sessionId) {
+        // Verificar el pago síncronamente
+        user.getIdToken().then(token => {
+          fetch('/api/stripe/verify', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({ session_id: sessionId })
+          }).then(res => res.json()).then(data => {
+            if (data.success) {
+              setSuccessMsg('¡Pago exitoso! Tu cuenta ahora es Premium. Haz clic en Generar Licencia para obtener tu API Key.');
+              router.replace('/dashboard');
+            }
+          });
+        });
       }
     }
-  }, [router]);
+  }, [user, router]);
 
   const handleSyncHistory = () => {
     if (!user) return;
