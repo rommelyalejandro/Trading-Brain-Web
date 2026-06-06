@@ -57,7 +57,7 @@ export default function PricingPage() {
   const plans = [
     {
       name: "Free",
-      alias: "Simulaciones | $1.99 pago único de activación",
+      alias: "Cuentas simuladas ilimitadas. Prueba todo el potencial del sistema sin restricciones.",
       price: "$0.00",
       period: "sin pago mensual",
       priceId: "price_free_activation",
@@ -73,7 +73,7 @@ export default function PricingPage() {
     {
       name: "Gold",
       alias: "Trader Intermedio",
-      price: "$49",
+      price: "$3.99",
       period: "/mes",
       priceId: "price_1TdB6I6tDIdDfbEsgE6SXCQI",
       features: ["Todo lo del plan Free", "Máx. 2 Cuentas Reales/Fondeo", "Copiado de Alta Frecuencia", "Multiplicadores Dinámicos"],
@@ -88,7 +88,7 @@ export default function PricingPage() {
     {
       name: "Platinum",
       alias: "Fondeado Pro",
-      price: "$99",
+      price: "$9.99",
       period: "/mes",
       priceId: "price_1TdB6I6tDIdDfbEsavRzis2v",
       features: ["Todo lo del plan Gold", "Máx. 10 Cuentas Reales/Fondeo", "Soporte Prioritario 24/7", "Funciones Avanzadas de Riesgo (R/R)"],
@@ -103,7 +103,7 @@ export default function PricingPage() {
     {
       name: "Palladium AI",
       alias: "Master Cuántico",
-      price: "$199",
+      price: "$19.99",
       period: "/mes",
       priceId: "price_1TdB6J6tDIdDfbEsjOhyGgp9",
       features: ["Todo lo del plan Platinum", "Cuentas Reales ILIMITADAS", "Inteligencia Artificial Predictiva", "Latencia Ultra-Baja Dedicada"],
