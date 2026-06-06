@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { auth } from '@/lib/firebase';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 export default function Dashboard() {
   const [trades, setTrades] = useState([]);
@@ -14,15 +14,17 @@ export default function Dashboard() {
   const [successMsg, setSuccessMsg] = useState(null);
   
   const router = useRouter();
-  const searchParams = useSearchParams();
 
   useEffect(() => {
-    if (searchParams.get('payment_success') === 'true') {
-      setSuccessMsg('¡Pago exitoso! Tu cuenta ahora es Premium. Haz clic en Generar Licencia para obtener tu API Key.');
-      // Clean up the URL
-      router.replace('/dashboard');
+    if (typeof window !== 'undefined') {
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('payment_success') === 'true') {
+        setSuccessMsg('¡Pago exitoso! Tu cuenta ahora es Premium. Haz clic en Generar Licencia para obtener tu API Key.');
+        // Clean up the URL
+        router.replace('/dashboard');
+      }
     }
-  }, [searchParams, router]);
+  }, [router]);
 
   const handleSyncHistory = () => {
     if (!user) return;
