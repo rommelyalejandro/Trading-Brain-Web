@@ -39,7 +39,7 @@ export async function POST(req) {
           quantity: 1,
         },
       ],
-      success_url: `${req.headers.get('origin')}/?checkout=success`,
+      success_url: `${req.headers.get('origin')}/dashboard?checkout=success`,
       cancel_url: `${req.headers.get('origin')}/pricing?checkout=canceled`,
     });
 
