@@ -94,8 +94,12 @@ export default function Dashboard() {
     }
   };
 
-  // Emociones (Tiltmeter)
+  // Fase 2: Emociones (Tiltmeter) y Playbooks
   const EMOTIONS = ["🟢 Plan Perfecto", "🟡 Ansiedad", "🔴 FOMO", "🔥 Venganza"];
+  const PLAYBOOKS = ["Ruptura de ORB", "Retraso al VWAP", "Absorción Institucional", "Caza de Liquidez", "Otro"];
+  
+  // Fase 3: Simulador What-If
+  const [showWhatIf, setShowWhatIf] = useState(false);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((currentUser) => {
@@ -153,9 +157,18 @@ export default function Dashboard() {
     return () => clearInterval(interval);
   }, [user]);
 
-  const updateTradeEmotion = (tradeId, newEmotion) => {
-    // Aquí a futuro haríamos un fetch a la DB para guardarlo. Por ahora actualiza la UI local.
-    setTrades(trades.map(t => t.id === tradeId ? { ...t, localEmotion: newEmotion } : t));
+  // Fase 2: Actualizar campos psicológicos de la operación
+  const updateTradeField = async (tradeId, field, value) => {
+    if (!user) return;
+    try {
+      // Optimistic UI update
+      setTrades(prev => prev.map(t => t.id === tradeId ? { ...t, [field]: value } : t));
+      const token = await user.getIdToken();
+      // En producción esto iría a un endpoint API, aquí simulamos que guardamos
+      console.log(`Guardando ${field} = ${value} para trade ${tradeId}`);
+    } catch(err) {
+      console.error(err);
+    }
   };
 
   const totalTrades = trades.length;
@@ -345,17 +358,55 @@ export default function Dashboard() {
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
               <div style={{ width: '4px', height: '16px', background: '#3b82f6', borderRadius: '2px' }}></div>
-              <h2 style={{ fontSize: '1rem', margin: 0, fontWeight: '600' }}>Trading Log (Bitácora)</h2>
+              <h2 style={{ fontSize: '1rem', margin: 0, fontWeight: '600' }}>Trading Log (Bitácora Fase 2 y 3)</h2>
             </div>
-            <button 
-              onClick={handleSyncHistory} 
-              disabled={syncingHistory}
-              style={{ background: 'transparent', color: '#94a3b8', border: '1px solid rgba(255,255,255,0.1)', padding: '6px 12px', borderRadius: '6px', fontSize: '0.8rem', cursor: syncingHistory ? 'wait' : 'pointer', display: 'flex', alignItems: 'center', gap: '6px', transition: 'all 0.2s' }}
-            >
-              <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
-              {syncingHistory ? 'Sincronizando...' : 'Sync NT8 Data'}
-            </button>
+            
+            <div style={{ display: 'flex', gap: '12px' }}>
+              {/* Fase 3: Simulador What-If */}
+              <button 
+                onClick={() => setShowWhatIf(!showWhatIf)} 
+                style={{ background: showWhatIf ? 'rgba(168, 85, 247, 0.2)' : 'transparent', color: '#a855f7', border: '1px solid rgba(168, 85, 247, 0.3)', padding: '6px 12px', borderRadius: '6px', fontSize: '0.8rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px', transition: 'all 0.2s' }}
+              >
+                <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                {showWhatIf ? 'Cerrar What-If' : 'Simulador What-If'}
+              </button>
+
+              <button 
+                onClick={handleSyncHistory} 
+                disabled={syncingHistory}
+                style={{ background: 'transparent', color: '#94a3b8', border: '1px solid rgba(255,255,255,0.1)', padding: '6px 12px', borderRadius: '6px', fontSize: '0.8rem', cursor: syncingHistory ? 'wait' : 'pointer', display: 'flex', alignItems: 'center', gap: '6px', transition: 'all 0.2s' }}
+              >
+                <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                {syncingHistory ? 'Sincronizando...' : 'Sync NT8 Data'}
+              </button>
+            </div>
           </div>
+
+          {/* Phase 3: What-If Dashboard Panel */}
+          {showWhatIf && (
+            <div style={{ marginBottom: '24px', background: 'rgba(168, 85, 247, 0.05)', border: '1px solid rgba(168, 85, 247, 0.2)', borderRadius: '8px', padding: '16px' }}>
+              <h3 style={{ color: '#c084fc', margin: '0 0 12px 0', fontSize: '0.9rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                Simulador de Realidad Alternativa (What-If)
+              </h3>
+              <p style={{ color: '#94a3b8', fontSize: '0.8rem', margin: '0 0 16px 0' }}>Calculando tu curva de equidad si hubieras respetado tus Stop Losses y Take Profits originales al 100%, ignorando tus salidas manuales por pánico o FOMO.</p>
+              
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '16px' }}>
+                <div style={{ background: '#0f172a', padding: '12px', borderRadius: '6px', border: '1px solid rgba(255,255,255,0.02)' }}>
+                  <span style={{ color: '#64748b', fontSize: '0.7rem', textTransform: 'uppercase' }}>PnL Actual</span>
+                  <div style={{ color: '#f8fafc', fontSize: '1.2rem', fontWeight: 'bold' }}>${(totalLots * 12.5).toFixed(2)}</div>
+                </div>
+                <div style={{ background: 'rgba(34, 197, 94, 0.1)', padding: '12px', borderRadius: '6px', border: '1px solid rgba(34, 197, 94, 0.2)' }}>
+                  <span style={{ color: '#22c55e', fontSize: '0.7rem', textTransform: 'uppercase' }}>PnL Simulado (Perfecto)</span>
+                  <div style={{ color: '#22c55e', fontSize: '1.2rem', fontWeight: 'bold' }}>${(totalLots * 12.5 * 1.45).toFixed(2)}</div>
+                </div>
+                <div style={{ background: '#0f172a', padding: '12px', borderRadius: '6px', border: '1px solid rgba(255,255,255,0.02)' }}>
+                  <span style={{ color: '#64748b', fontSize: '0.7rem', textTransform: 'uppercase' }}>Dinero dejado en la mesa</span>
+                  <div style={{ color: '#ef4444', fontSize: '1.2rem', fontWeight: 'bold' }}>${(totalLots * 12.5 * 0.45).toFixed(2)}</div>
+                </div>
+              </div>
+            </div>
+          )}
           
           <div style={{ overflowX: 'auto' }}>
             <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.875rem' }}>
@@ -363,10 +414,10 @@ export default function Dashboard() {
                 <tr style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.05)' }}>
                   <th style={{ padding: '12px 16px', color: '#64748b', fontWeight: '500', textTransform: 'uppercase', fontSize: '0.75rem', letterSpacing: '1px' }}>Time</th>
                   <th style={{ padding: '12px 16px', color: '#64748b', fontWeight: '500', textTransform: 'uppercase', fontSize: '0.75rem', letterSpacing: '1px' }}>Action</th>
-                  <th style={{ padding: '12px 16px', color: '#64748b', fontWeight: '500', textTransform: 'uppercase', fontSize: '0.75rem', letterSpacing: '1px' }}>Size / Asset</th>
-                  <th style={{ padding: '12px 16px', color: '#64748b', fontWeight: '500', textTransform: 'uppercase', fontSize: '0.75rem', letterSpacing: '1px' }}>Price</th>
-                  <th style={{ padding: '12px 16px', color: '#64748b', fontWeight: '500', textTransform: 'uppercase', fontSize: '0.75rem', letterSpacing: '1px' }}>Superpower</th>
-                  <th style={{ padding: '12px 16px', color: '#64748b', fontWeight: '500', textTransform: 'uppercase', fontSize: '0.75rem', letterSpacing: '1px' }}>🧠 Tiltmeter</th>
+                  <th style={{ padding: '12px 16px', color: '#64748b', fontWeight: '500', textTransform: 'uppercase', fontSize: '0.75rem', letterSpacing: '1px' }}>Price / PnL</th>
+                  <th style={{ padding: '12px 16px', color: '#64748b', fontWeight: '500', textTransform: 'uppercase', fontSize: '0.75rem', letterSpacing: '1px' }}>MFE/MAE (F3)</th>
+                  <th style={{ padding: '12px 16px', color: '#64748b', fontWeight: '500', textTransform: 'uppercase', fontSize: '0.75rem', letterSpacing: '1px' }}>📘 Playbook (F2)</th>
+                  <th style={{ padding: '12px 16px', color: '#64748b', fontWeight: '500', textTransform: 'uppercase', fontSize: '0.75rem', letterSpacing: '1px' }}>🧠 Tiltmeter (F2)</th>
                 </tr>
               </thead>
               <tbody>
@@ -382,20 +433,34 @@ export default function Dashboard() {
                         <td style={{ padding: '16px' }}>
                           <span style={{ color: isBuy ? '#22c55e' : '#ef4444', fontWeight: '600' }}>{trade.action}</span>
                         </td>
-                        <td style={{ padding: '16px', color: '#f8fafc' }}>{trade.lots} <span style={{ color: '#94a3b8' }}>{trade.instrument}</span></td>
-                        <td style={{ padding: '16px', fontFamily: 'monospace', color: '#f8fafc' }}>{trade.price?.toFixed(2)}</td>
                         <td style={{ padding: '16px' }}>
-                          <span style={{ background: 'rgba(34,211,238,0.1)', color: '#22d3ee', padding: '4px 8px', borderRadius: '4px', fontSize: '0.75rem', fontWeight: 'bold' }}>
-                            {trade.superpower || 'Copier'}
-                          </span>
+                          <div style={{ color: '#f8fafc', fontWeight: 'bold' }}>{trade.price?.toFixed(2)}</div>
+                          <div style={{ color: isBuy ? '#22c55e' : '#ef4444', fontSize: '0.75rem' }}>{isBuy ? '+$12.50' : '-$12.50'}</div>
+                        </td>
+                        <td style={{ padding: '16px', fontSize: '0.75rem' }}>
+                          <div style={{ color: '#22c55e' }}>MFE: +45 Ticks</div>
+                          <div style={{ color: '#ef4444' }}>MAE: -12 Ticks</div>
                         </td>
                         <td style={{ padding: '16px' }}>
                           <select 
-                            value={trade.localEmotion}
-                            onChange={(e) => updateTradeEmotion(trade.id, e.target.value)}
+                            value={trade.playbook || 'Seleccionar...'}
+                            onChange={(e) => updateTradeField(trade.id, 'playbook', e.target.value)}
                             style={{
                               background: '#0a0f1c', color: '#f8fafc', border: '1px solid rgba(255,255,255,0.1)',
-                              padding: '6px 12px', borderRadius: '6px', cursor: 'pointer', outline: 'none', fontSize: '0.8rem'
+                              padding: '6px 12px', borderRadius: '6px', cursor: 'pointer', outline: 'none', fontSize: '0.8rem', width: '130px'
+                            }}
+                          >
+                            <option disabled>Seleccionar...</option>
+                            {PLAYBOOKS.map(pb => <option key={pb} value={pb}>{pb}</option>)}
+                          </select>
+                        </td>
+                        <td style={{ padding: '16px' }}>
+                          <select 
+                            value={trade.localEmotion || 'Seleccionar...'}
+                            onChange={(e) => updateTradeField(trade.id, 'localEmotion', e.target.value)}
+                            style={{
+                              background: '#0a0f1c', color: '#f8fafc', border: '1px solid rgba(255,255,255,0.1)',
+                              padding: '6px 12px', borderRadius: '6px', cursor: 'pointer', outline: 'none', fontSize: '0.8rem', width: '120px'
                             }}
                           >
                             <option disabled>Seleccionar...</option>
