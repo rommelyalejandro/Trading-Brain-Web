@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import Stripe from 'stripe';
-import { adminDb } from '@/lib/firebase-admin';
+import { db } from '@/lib/firebase-admin';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
   apiVersion: '2023-10-16',
@@ -31,7 +31,7 @@ export async function POST(request) {
     if (userId) {
       try {
         // Fetch the user's document
-        const userRef = adminDb.collection('users').doc(userId);
+        const userRef = db.collection('users').doc(userId);
         
         // Update user status
         await userRef.set({

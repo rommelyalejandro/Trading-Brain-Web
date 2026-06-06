@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import Stripe from 'stripe';
-import { adminAuth } from '@/lib/firebase-admin';
+import { admin } from '@/lib/firebase-admin';
 
 // Initialize Stripe with the secret key from environment variables
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
@@ -17,7 +17,7 @@ export async function POST(request) {
     const token = authHeader.split('Bearer ')[1];
     let decodedToken;
     try {
-      decodedToken = await adminAuth.verifyIdToken(token);
+      decodedToken = await admin.auth().verifyIdToken(token);
     } catch (error) {
       return NextResponse.json({ success: false, error: 'Invalid token' }, { status: 401 });
     }
