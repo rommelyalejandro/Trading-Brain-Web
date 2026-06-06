@@ -30,6 +30,20 @@ export async function POST(request) {
 
     if (userId) {
       try {
+        // Expand line items to get the product name
+        const expandedSession = await stripe.checkout.sessions.retrieve(session.id, {
+          expand: ['line_items']
+        });
+        
+        let planName = 'Premium';
+        if (expandedSession.line_items && expandedSession.line_items.data.length > 0) {
+          planName = expandedSession.line_items.data[0].description;
+          if (planName.toLowerCase().includes('free')) planName = 'Free';
+          else if (planName.toLowerCase().includes('gold')) planName = 'Gold';
+          else if (planName.toLowerCase().includes('platinum')) planName = 'Platinum';
+          else if (planName.toLowerCase().includes('palladium')) planName = 'Palladium AI';
+        }
+
         // Fetch the user's document
         const userRef = db.collection('users').doc(userId);
         
@@ -37,7 +51,7 @@ export async function POST(request) {
         await userRef.set({
           stripeCustomerId: session.customer,
           subscriptionStatus: 'active',
-          plan: 'paid', // Could be dynamic based on the price ID mapped from Stripe
+          plan: planName,
           updatedAt: new Date().toISOString()
         }, { merge: true });
 

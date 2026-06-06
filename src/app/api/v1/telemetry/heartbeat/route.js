@@ -15,7 +15,7 @@ export async function POST(request) {
     let isValid = false;
     let userEmail = 'unknown';
     let errorMessage = 'Invalid API Key';
-    
+    let planName = 'Free';
     if (apiKey) {
       const usersSnapshot = await db.collection('users').where('api_key', '==', apiKey).limit(1).get();
       if (!usersSnapshot.empty) {
@@ -23,15 +23,14 @@ export async function POST(request) {
         const userDoc = usersSnapshot.docs[0];
         const userData = userDoc.data();
         userEmail = userData.email;
+        planName = userData.plan || 'Free';
 
         // Anti-Piratería: Bloqueo de Hardware / Instancia
         const incomingInstanceId = payload.instance_id || request.headers.get('x-instance-id');
         if (incomingInstanceId) {
           if (!userData.locked_instance_id) {
-            // Es la primera vez que se usa la llave, bloquear a esta máquina
             await userDoc.ref.update({ locked_instance_id: incomingInstanceId });
           } else if (userData.locked_instance_id !== incomingInstanceId) {
-            // Ya está bloqueada a OTRA máquina, rechazar conexión
             isValid = false;
             errorMessage = 'Concurrent Usage Detected: API Key is locked to another NinjaTrader instance.';
           }
@@ -59,7 +58,7 @@ export async function POST(request) {
       return NextResponse.json({ success: false, error: errorMessage }, { status: 403 });
     }
 
-    return NextResponse.json({ success: true, message: 'Heartbeat logged' });
+    return NextResponse.json({ success: true, message: 'Heartbeat logged', plan: planName });
 
   } catch (error) {
     console.error('Error logging telemetry:', error);

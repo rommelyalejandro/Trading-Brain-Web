@@ -27,18 +27,31 @@ export async function POST(request) {
       return NextResponse.json({ success: false, error: 'Session ID is required' }, { status: 400 });
     }
 
-    // Verificar la sesión en Stripe
-    const session = await stripe.checkout.sessions.retrieve(session_id);
+    // Verificar la sesión en Stripe expandiendo line_items
+    const session = await stripe.checkout.sessions.retrieve(session_id, {
+      expand: ['line_items']
+    });
     
     if (session.payment_status === 'paid') {
       const userId = decodedToken.uid;
       
+      let planName = 'Premium';
+      if (session.line_items && session.line_items.data.length > 0) {
+        // Stripe usually sets description to the product name
+        planName = session.line_items.data[0].description;
+        // Clean up common prefixes like "Licencia" or "Plan" if we want, or leave as is
+        if (planName.toLowerCase().includes('free')) planName = 'Free';
+        else if (planName.toLowerCase().includes('gold')) planName = 'Gold';
+        else if (planName.toLowerCase().includes('platinum')) planName = 'Platinum';
+        else if (planName.toLowerCase().includes('palladium')) planName = 'Palladium AI';
+      }
+
       // Update user status
       const userRef = db.collection('users').doc(userId);
       await userRef.set({
         stripeCustomerId: session.customer,
         subscriptionStatus: 'active',
-        plan: 'paid',
+        plan: planName,
         updatedAt: new Date().toISOString()
       }, { merge: true });
 
