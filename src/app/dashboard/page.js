@@ -10,7 +10,60 @@ export default function Dashboard() {
   const [user, setUser] = useState(null);
   const [apiKey, setApiKey] = useState(null);
   const [loadingKey, setLoadingKey] = useState(false);
+  const [syncingHistory, setSyncingHistory] = useState(false);
   const router = useRouter();
+
+  const handleSyncHistory = () => {
+    if (!user) return;
+    setSyncingHistory(true);
+    try {
+      const ws = new WebSocket('ws://localhost:8000/ws/frontend');
+      
+      ws.onopen = () => {
+        ws.send(JSON.stringify({ type: 'SYNC_HISTORY', userId: user.uid }));
+      };
+
+      ws.onmessage = async (event) => {
+        const data = JSON.parse(event.data);
+        if (data.type === 'HISTORY_SYNC_RESULT') {
+          if (data.status === 'success' && data.data.length > 0) {
+            try {
+              const token = await user.getIdToken();
+              const res = await fetch('/api/trades/sync', {
+                method: 'POST',
+                headers: {
+                  'Authorization': `Bearer ${token}`,
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ trades: data.data })
+              });
+              const result = await res.json();
+              if (result.success) {
+                alert(`¡Éxito! Se sincronizaron ${result.count} operaciones históricas desde NinjaTrader a tu Bitácora.`);
+              } else {
+                alert('Hubo un error al guardar el historial en la nube: ' + result.error);
+              }
+            } catch (apiError) {
+              console.error(apiError);
+              alert('Error conectando a la API: ' + apiError.message);
+            }
+          } else {
+            alert('No se encontraron operaciones históricas en NinjaTrader.');
+          }
+          setSyncingHistory(false);
+          ws.close();
+        }
+      };
+
+      ws.onerror = (e) => {
+        alert('No se pudo conectar con el Motor Local de Python. Asegúrate de tenerlo encendido en tu computadora.');
+        setSyncingHistory(false);
+      };
+    } catch(err) {
+      alert('Error al iniciar sincronización: ' + err.message);
+      setSyncingHistory(false);
+    }
+  };
 
   // Emociones (Tiltmeter)
   const EMOTIONS = ["🟢 Plan Perfecto", "🟡 Ansiedad", "🔴 FOMO", "🔥 Venganza"];
@@ -150,7 +203,22 @@ export default function Dashboard() {
       </div>
       {/* Bitácora / Tabla */}
       <div style={{ background: 'rgba(30, 41, 59, 0.4)', padding: '24px', borderRadius: '16px', border: '1px solid rgba(148, 163, 184, 0.1)' }}>
-        <h2 style={{ fontSize: '1.25rem', marginTop: 0, marginBottom: '24px' }}>Bitácora de Operaciones</h2>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
+          <h2 style={{ fontSize: '1.25rem', margin: 0 }}>Bitácora de Operaciones</h2>
+          <button 
+            onClick={handleSyncHistory} 
+            disabled={syncingHistory}
+            title="Extraer historial pasado desde la base de datos de NinjaTrader"
+            style={{ 
+              background: 'transparent', color: '#94a3b8', border: '1px dashed rgba(148, 163, 184, 0.3)', 
+              padding: '6px 12px', borderRadius: '6px', fontSize: '0.875rem', cursor: syncingHistory ? 'wait' : 'pointer',
+              display: 'flex', alignItems: 'center', gap: '6px'
+            }}
+          >
+            <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+            {syncingHistory ? 'Sincronizando...' : 'Sincronizar NT8'}
+          </button>
+        </div>
         <div style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
             <thead>
