@@ -10,30 +10,20 @@ const dict = {
     title1: "Never blow another", title2: "Prop Account", title3: "again.",
     desc: "The first AI-driven trading ecosystem designed to protect your capital. Ultra-fast local trade copier, automated risk management, and institutional tools included.",
     trialBtn: "Start Free Trial", dashBtn: "Go to Dashboard",
-    f1Title: "Ultra-Fast SuperCopier", f1Desc: "Replicate your trades across multiple real accounts in milliseconds. Zero latency, zero lockups.",
-    f2Title: "Smart Analytics Log", f2Desc: "Automatically record your trades, analyze your psychology (Tiltmeter), and discover your real mathematical edge.",
-    f3Title: "Risk/Reward Shield", f3Desc: "If your risk exceeds your predefined limit, the system automatically switches to Micro contracts to protect you.",
-    f4Title: "VP Fixed (Volume Profile)", f4Desc: "Draw millimeter-perfect volume profiles anywhere on your chart using native NinjaTrader drawing architecture.",
-    f5Title: "Dynamic VPOC", f5Desc: "Identify in real-time the exact price level with the highest institutional transactional volume within each forming candle.",
-    f6Title: "DeltaBar & Order Flow", f6Desc: "Measure pure market aggression (Ask vs Bid) with ultra-light histograms that won't lag or crash NinjaTrader.",
-    f7Title: "Big Trade Detector", f7Desc: "Instantly spot massive institutional market orders crossing the tape, plotted precisely on the chart.",
-    f8Title: "Absorption Heatmap", f8Desc: "Detect where limit orders are absorbing aggressive market participants before reversals happen."
+    f1Title: "Protector AI", f1Desc: "Protects you from blowing funded accounts due to human error or bad practices. Automatically manages your risk.",
+    f2Title: "High-Efficiency Trade Copier", f2Desc: "Copy your trades to as many accounts as you want with zero latency. Seamless replication for prop firms.",
+    f3Title: "All SuperPowers Included", f3Desc: "Get our entire suite of premium institutional indicators for free: Order Flow, DeltaBar, Big Trades, Absorptions, and more."
   },
   es: {
     features: "Funciones", testimonials: "Testimonios", faq: "FAQ",
     login: "Iniciar Sesión", getFunded: "Obtén tu Licencia Gratis",
     badge: "El Escudo Anti-Quiebres Definitivo",
     title1: "Nunca vuelvas a quemar", title2: "una Cuenta de Fondeo", title3: ".",
-    desc: "El primer ecosistema de Trading con Inteligencia Artificial diseñado para proteger tu capital. Copiadora ultrarrápida local, gestión de riesgo automática y herramientas institucionales.",
+    desc: "El primer ecosistema de Trading con Inteligencia Artificial diseñado para proteger tu capital. Gestiona tu riesgo, copia a múltiples cuentas y obtén herramientas institucionales gratis.",
     trialBtn: "Empezar Prueba Gratis", dashBtn: "Ir al Dashboard",
-    f1Title: "SuperCopier Ultrarrápido", f1Desc: "Replica tus operaciones a múltiples cuentas reales en milisegundos. Cero latencia, cero bloqueos.",
-    f2Title: "Bitácora Analítica", f2Desc: "Registra tus operaciones automáticamente, analiza tu psicología (Tiltmeter) y descubre tu ventaja matemática.",
-    f3Title: "Escudo Risk/Reward", f3Desc: "Si tu riesgo excede tu límite predefinido, el sistema cambia automáticamente a contratos Micro para protegerte.",
-    f4Title: "VP Fixed (Volume Profile)", f4Desc: "Dibuja perfiles de volumen milimétricos en cualquier zona del gráfico usando arquitectura de herramientas de dibujo nativas.",
-    f5Title: "VPOC Dinámico", f5Desc: "Identifica en tiempo real el nivel de precio exacto con mayor volumen transaccional institucional dentro de cada vela.",
-    f6Title: "DeltaBar & Order Flow", f6Desc: "Mide la agresión pura del mercado (Ask vs Bid) con histogramas ultraligeros que no saturan ni congelan NinjaTrader.",
-    f7Title: "Detector de Big Trades", f7Desc: "Identifica instantáneamente grandes órdenes de mercado institucionales cruzando la cinta de opciones, graficadas con precisión.",
-    f8Title: "Mapa de Absorción", f8Desc: "Detecta zonas donde las órdenes límite (Icebergs) están absorbiendo la agresión del mercado justo antes de un giro."
+    f1Title: "Protector AI (Tu Escudo)", f1Desc: "Te protege de quemar cuentas fondeadas por error humano o malas praxis. Gestiona tu riesgo automáticamente y limita pérdidas.",
+    f2Title: "Copiadora de Alta Eficiencia", f2Desc: "Copia tus operaciones a todas las cuentas que quieras simultáneamente. Cero latencia y replicación exacta.",
+    f3Title: "Todos los SuperPoderes Gratis", f3Desc: "Incluye gratis nuestra suite de indicadores premium: Order Flow, DeltaBar, Big Trades, Absorciones, VPOC y más."
   }
 };
 
@@ -106,23 +96,24 @@ export default function LandingPage() {
       </main>
 
       <section style={{ position: 'relative', zIndex: 10, maxWidth: '1200px', margin: '0 auto 120px auto', padding: '0 24px' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '24px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '32px' }}>
           {[
-            { icon: '⚡', title: t.f1Title, desc: t.f1Desc },
-            { icon: '📓', title: t.f2Title, desc: t.f2Desc },
-            { icon: '🛡️', title: t.f3Title, desc: t.f3Desc },
-            { icon: '📊', title: t.f4Title, desc: t.f4Desc },
-            { icon: '🎯', title: t.f5Title, desc: t.f5Desc },
-            { icon: '⚖️', title: t.f6Title, desc: t.f6Desc },
-            { icon: '🐳', title: t.f7Title, desc: t.f7Desc },
-            { icon: '🧱', title: t.f8Title, desc: t.f8Desc }
+            { icon: '🛡️', title: t.f1Title, desc: t.f1Desc, highlight: true },
+            { icon: '⚡', title: t.f2Title, desc: t.f2Desc, highlight: false },
+            { icon: '🎁', title: t.f3Title, desc: t.f3Desc, highlight: false }
           ].map((feat, i) => (
-            <div key={i} style={{ background: '#101726', border: '1px solid rgba(255, 255, 255, 0.03)', borderRadius: '16px', padding: '40px', transition: 'transform 0.3s, border-color 0.3s', cursor: 'default' }} onMouseOver={e => { e.currentTarget.style.transform = 'translateY(-5px)'; e.currentTarget.style.borderColor = 'rgba(34, 197, 94, 0.5)' }} onMouseOut={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.03)' }}>
-              <div style={{ fontSize: '2rem', marginBottom: '24px', background: 'rgba(34, 197, 94, 0.1)', width: '64px', height: '64px', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '12px' }}>
+            <div key={i} style={{ 
+              background: feat.highlight ? 'linear-gradient(180deg, rgba(34, 197, 94, 0.1) 0%, rgba(16, 23, 38, 1) 100%)' : '#101726', 
+              border: feat.highlight ? '1px solid rgba(34, 197, 94, 0.5)' : '1px solid rgba(255, 255, 255, 0.03)', 
+              borderRadius: '16px', padding: '48px 40px', transition: 'transform 0.3s, box-shadow 0.3s', 
+              boxShadow: feat.highlight ? '0 10px 40px rgba(34, 197, 94, 0.15)' : 'none',
+              cursor: 'default', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' 
+            }} onMouseOver={e => { e.currentTarget.style.transform = 'translateY(-10px)'; if(!feat.highlight) e.currentTarget.style.borderColor = 'rgba(34, 197, 94, 0.3)' }} onMouseOut={e => { e.currentTarget.style.transform = 'translateY(0)'; if(!feat.highlight) e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.03)' }}>
+              <div style={{ fontSize: '3rem', marginBottom: '24px', background: feat.highlight ? 'rgba(34, 197, 94, 0.2)' : 'rgba(255, 255, 255, 0.05)', width: '80px', height: '80px', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '20px', boxShadow: feat.highlight ? '0 0 20px rgba(34, 197, 94, 0.4)' : 'none' }}>
                 {feat.icon}
               </div>
-              <h3 style={{ fontSize: '1.25rem', fontWeight: '800', marginBottom: '12px', color: '#f8fafc' }}>{feat.title}</h3>
-              <p style={{ color: '#64748b', lineHeight: '1.7', fontSize: '0.9rem', margin: 0 }}>{feat.desc}</p>
+              <h3 style={{ fontSize: '1.5rem', fontWeight: '800', marginBottom: '16px', color: feat.highlight ? '#22c55e' : '#f8fafc' }}>{feat.title}</h3>
+              <p style={{ color: '#94a3b8', lineHeight: '1.8', fontSize: '1.05rem', margin: 0 }}>{feat.desc}</p>
             </div>
           ))}
         </div>
