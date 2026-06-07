@@ -12,7 +12,18 @@ const dict = {
     trialBtn: "Start Free Trial", dashBtn: "Go to Dashboard",
     f1Title: "Protector AI", f1Desc: "Protects you from blowing funded accounts due to human error or bad practices. Automatically manages your risk.",
     f2Title: "High-Efficiency Trade Copier", f2Desc: "Copy your trades to as many accounts as you want with zero latency. Seamless replication for prop firms.",
-    f3Title: "All SuperPowers Included", f3Desc: "Get our entire suite of premium institutional indicators for free: Order Flow, DeltaBar, Big Trades, Absorptions, and more."
+    f3Title: "All SuperPowers Included", f3Desc: "Get our entire suite of premium institutional indicators for free: Order Flow, DeltaBar, Big Trades, Absorptions, and more.",
+    spHeader: "Your Institutional Arsenal, Included.",
+    spSub: "You don't just get the Protector and the Copier. We give you our 6 institutional order flow and volume reading tools to give you an irrefutable mathematical edge in the market.",
+    sp1Title: "Order Flow (Footprint)", sp1Desc: "See inside the candles. Analyze exactly how many contracts were bought and sold at every price level.",
+    sp2Title: "DeltaBar", sp2Desc: "Measure pure market aggression. Ultra-light histograms showing the net difference between buyers and sellers.",
+    sp3Title: "Big Trade Detector", sp3Desc: "Instantly spot massive institutional market orders crossing the tape, plotted precisely on the chart.",
+    sp4Title: "Absorption Heatmap", sp4Desc: "Detect where limit orders (Icebergs) are absorbing aggressive market participants before reversals happen.",
+    sp5Title: "VP Fixed (Volume Profile)", sp5Desc: "Draw millimeter-perfect volume profiles anywhere on your chart using native NinjaTrader drawing tools.",
+    sp6Title: "Dynamic VPOC", sp6Desc: "Identify in real-time the exact price level with the highest institutional transactional volume within each forming candle.",
+    ctaTitle: "Stop donating your money to Prop Firms.",
+    ctaDesc: "Join thousands of traders who are already protecting their capital and passing evaluations faster.",
+    ctaBtn: "Get Started Now"
   },
   es: {
     features: "Funciones", testimonials: "Testimonios", faq: "FAQ",
@@ -23,7 +34,18 @@ const dict = {
     trialBtn: "Empezar Prueba Gratis", dashBtn: "Ir al Dashboard",
     f1Title: "Protector AI (Tu Escudo)", f1Desc: "Te protege de quemar cuentas fondeadas por error humano o malas praxis. Gestiona tu riesgo automáticamente y limita pérdidas.",
     f2Title: "Copiadora de Alta Eficiencia", f2Desc: "Copia tus operaciones a todas las cuentas que quieras simultáneamente. Cero latencia y replicación exacta.",
-    f3Title: "Todos los SuperPoderes Gratis", f3Desc: "Incluye gratis nuestra suite de indicadores premium: Order Flow, DeltaBar, Big Trades, Absorciones, VPOC y más."
+    f3Title: "Todos los SuperPoderes Gratis", f3Desc: "Incluye gratis nuestra suite de indicadores premium: Order Flow, DeltaBar, Big Trades, Absorciones, VPOC y más.",
+    spHeader: "Tu Arsenal Institucional, Incluido.",
+    spSub: "No solo obtienes el Protector y la Copiadora. Te entregamos nuestras 6 herramientas institucionales de lectura de flujo de órdenes y volumen para que tengas una ventaja matemática irrefutable en el mercado.",
+    sp1Title: "Order Flow (Footprint)", sp1Desc: "Mira dentro de las velas. Analiza exactamente cuántos contratos se compraron y vendieron en cada nivel de precio.",
+    sp2Title: "DeltaBar", sp2Desc: "Mide la agresión pura del mercado. Histogramas ultraligeros que muestran la diferencia neta entre compradores y vendedores.",
+    sp3Title: "Detector de Big Trades", sp3Desc: "Identifica instantáneamente grandes órdenes de mercado institucionales cruzando la cinta de opciones, graficadas con precisión.",
+    sp4Title: "Mapa de Absorción", sp4Desc: "Detecta zonas donde las órdenes límite (Icebergs) están absorbiendo la agresión del mercado justo antes de un giro.",
+    sp5Title: "VP Fixed (Volume Profile)", sp5Desc: "Dibuja perfiles de volumen milimétricos en cualquier zona del gráfico usando arquitectura de herramientas de dibujo nativas.",
+    sp6Title: "VPOC Dinámico", sp6Desc: "Identifica en tiempo real el nivel de precio exacto con mayor volumen transaccional institucional dentro de cada vela.",
+    ctaTitle: "Deja de donar tu dinero a las empresas de fondeo.",
+    ctaDesc: "Únete a los traders que ya están protegiendo su capital y pasando evaluaciones en tiempo récord.",
+    ctaBtn: "Comenzar Ahora"
   }
 };
 
@@ -37,11 +59,13 @@ export default function LandingPage() {
       minHeight: '100vh', backgroundColor: '#0a0f1c', color: '#f8fafc',
       fontFamily: '"Inter", sans-serif', position: 'relative', overflowX: 'hidden'
     }}>
-      <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '500px', background: 'radial-gradient(ellipse at top, rgba(34, 197, 94, 0.05) 0%, rgba(10, 15, 28, 0) 70%)', pointerEvents: 'none' }} />
+      {/* Background Glow */}
+      <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '700px', background: 'radial-gradient(ellipse at top, rgba(34, 197, 94, 0.08) 0%, rgba(10, 15, 28, 0) 70%)', pointerEvents: 'none', zIndex: 0 }} />
 
+      {/* Navbar */}
       <nav style={{
         position: 'relative', zIndex: 50, display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-        padding: '24px 64px', borderBottom: '1px solid rgba(255,255,255,0.03)', background: '#0b101e'
+        padding: '24px 64px', borderBottom: '1px solid rgba(255,255,255,0.03)', background: 'rgba(11, 16, 30, 0.8)', backdropFilter: 'blur(10px)'
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '16px', cursor: 'pointer' }}>
           <img src="/icon.png" alt="Trading Brain AI Logo" style={{ width: '48px', height: '48px', filter: 'drop-shadow(0 0 10px rgba(34, 197, 94, 0.3))' }} />
@@ -70,6 +94,7 @@ export default function LandingPage() {
         </div>
       </nav>
 
+      {/* Hero Section */}
       <main style={{ position: 'relative', zIndex: 10, maxWidth: '1200px', margin: '0 auto', padding: '120px 24px 80px 24px', textAlign: 'center' }}>
         <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '8px 16px', background: '#101726', border: '1px solid rgba(255, 255, 255, 0.05)', borderRadius: '99px', color: '#94a3b8', fontSize: '0.75rem', fontWeight: '700', letterSpacing: '1px', textTransform: 'uppercase', marginBottom: '40px' }}>
           <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#22c55e', boxShadow: '0 0 8px #22c55e' }}></span>
@@ -95,6 +120,7 @@ export default function LandingPage() {
         </div>
       </main>
 
+      {/* The 3 Main Hooks (Value Proposition) */}
       <section style={{ position: 'relative', zIndex: 10, maxWidth: '1200px', margin: '0 auto 120px auto', padding: '0 24px' }}>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '32px' }}>
           {[
@@ -118,6 +144,55 @@ export default function LandingPage() {
           ))}
         </div>
       </section>
+
+      {/* Deep Dive: SuperPowers Included */}
+      <section style={{ background: '#0b101e', borderTop: '1px solid rgba(255,255,255,0.03)', borderBottom: '1px solid rgba(255,255,255,0.03)', padding: '120px 24px' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto', textAlign: 'center' }}>
+          <h2 style={{ fontSize: '3.5rem', fontWeight: '900', color: '#ffffff', marginBottom: '24px', letterSpacing: '-0.02em' }}>
+            {t.spHeader}
+          </h2>
+          <p style={{ fontSize: '1.2rem', color: '#94a3b8', maxWidth: '800px', margin: '0 auto 64px auto', lineHeight: '1.7' }}>
+            {t.spSub}
+          </p>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '24px', textAlign: 'left' }}>
+            {[
+              { icon: '⚖️', title: t.sp1Title, desc: t.sp1Desc },
+              { icon: '📊', title: t.sp2Title, desc: t.sp2Desc },
+              { icon: '🐳', title: t.sp3Title, desc: t.sp3Desc },
+              { icon: '🧱', title: t.sp4Title, desc: t.sp4Desc },
+              { icon: '📐', title: t.sp5Title, desc: t.sp5Desc },
+              { icon: '🎯', title: t.sp6Title, desc: t.sp6Desc }
+            ].map((sp, i) => (
+              <div key={i} style={{ background: '#101726', padding: '32px', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.03)', transition: 'background 0.3s' }} onMouseOver={e => e.currentTarget.style.background = '#151f33'} onMouseOut={e => e.currentTarget.style.background = '#101726'}>
+                <div style={{ fontSize: '2rem', marginBottom: '16px' }}>{sp.icon}</div>
+                <h4 style={{ fontSize: '1.25rem', fontWeight: '800', color: '#f8fafc', marginBottom: '12px' }}>{sp.title}</h4>
+                <p style={{ color: '#94a3b8', lineHeight: '1.6', fontSize: '0.95rem', margin: 0 }}>{sp.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA / Final Urgency Section */}
+      <section style={{ position: 'relative', maxWidth: '1000px', margin: '120px auto', padding: '0 24px', textAlign: 'center' }}>
+        <div style={{ background: 'linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, rgba(10, 15, 28, 0) 100%)', border: '1px solid rgba(34, 197, 94, 0.3)', borderRadius: '24px', padding: '80px 40px', boxShadow: '0 20px 80px rgba(34, 197, 94, 0.1)' }}>
+          <h2 style={{ fontSize: '3rem', fontWeight: '900', color: '#ffffff', marginBottom: '24px', lineHeight: '1.1', letterSpacing: '-0.02em' }}>
+            {t.ctaTitle}
+          </h2>
+          <p style={{ fontSize: '1.25rem', color: '#94a3b8', maxWidth: '600px', margin: '0 auto 40px auto', lineHeight: '1.6' }}>
+            {t.ctaDesc}
+          </p>
+          <button onClick={() => router.push('/pricing')} style={{ background: '#22c55e', color: '#022c22', border: 'none', padding: '20px 48px', borderRadius: '8px', fontSize: '1.25rem', fontWeight: '900', cursor: 'pointer', boxShadow: '0 0 30px rgba(34, 197, 94, 0.4)', transition: 'transform 0.2s' }} onMouseOver={e => e.target.style.transform = 'scale(1.05)'} onMouseOut={e => e.target.style.transform = 'scale(1)'}>
+            {t.ctaBtn}
+          </button>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer style={{ borderTop: '1px solid rgba(255,255,255,0.03)', padding: '40px 24px', textAlign: 'center', color: '#64748b', fontSize: '0.875rem' }}>
+        <p>© {new Date().getFullYear()} Trading Brain AI. All rights reserved.</p>
+      </footer>
     </div>
   );
 }
