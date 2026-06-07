@@ -246,7 +246,7 @@ export default function Dashboard() {
           {user?.email === 'rommelyalejandro@gmail.com' && (
             <div onClick={() => router.push('/admin')} style={{ padding: '12px 24px', color: '#a855f7', display: 'flex', alignItems: 'center', gap: '12px', cursor: 'pointer', borderLeft: '3px solid transparent', transition: 'all 0.2s', marginTop: '10px' }} onMouseOver={e => { e.currentTarget.style.color = '#d8b4fe'; e.currentTarget.style.backgroundColor = 'rgba(168, 85, 247, 0.1)'; }} onMouseOut={e => { e.currentTarget.style.color = '#a855f7'; e.currentTarget.style.backgroundColor = 'transparent'; }}>
               <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-              CentCom (Admin)
+              Brain AI (Admin)
             </div>
           )}
         </nav>
