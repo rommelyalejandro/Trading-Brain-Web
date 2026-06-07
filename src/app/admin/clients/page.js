@@ -120,6 +120,7 @@ export default function AdminClients() {
             <option style={{ background: '#0b0f19', color: 'white' }} value="All">Todos los Planes</option>
             <option style={{ background: '#0b0f19', color: 'white' }} value="Free">Free</option>
             <option style={{ background: '#0b0f19', color: 'white' }} value="Gold">Gold</option>
+            <option style={{ background: '#0b0f19', color: 'white' }} value="Platinum">Platinum</option>
             <option style={{ background: '#0b0f19', color: 'white' }} value="Palladium">Palladium</option>
           </select>
           <button onClick={fetchClients} style={{ padding: '8px 16px', background: 'var(--panel-bg)', color: 'var(--accent-blue)', border: '1px solid var(--border-color)', borderRadius: '8px', cursor: 'pointer' }}>
@@ -164,6 +165,7 @@ export default function AdminClients() {
                       fontSize: '11px', 
                       fontWeight: 'bold',
                       background: client.plan === 'Palladium' ? 'linear-gradient(90deg, #a855f7, #c084fc)' : 
+                                  client.plan === 'Platinum' ? 'linear-gradient(90deg, #94a3b8, #cbd5e1)' :
                                   client.plan === 'Gold' ? 'linear-gradient(90deg, #f59e0b, #fbbf24)' : 
                                   'rgba(255,255,255,0.1)',
                       color: client.plan === 'Free' ? 'white' : 'black'
@@ -190,6 +192,7 @@ export default function AdminClients() {
                       <option style={{ background: '#0b0f19', color: 'white' }} value="">Cambiar Plan...</option>
                       {client.plan !== 'Free' && <option style={{ background: '#0b0f19', color: 'white' }} value="Free">Bajar a Free</option>}
                       {client.plan !== 'Gold' && <option style={{ background: '#0b0f19', color: 'white' }} value="Gold">Subir a Gold</option>}
+                      {client.plan !== 'Platinum' && <option style={{ background: '#0b0f19', color: 'white' }} value="Platinum">Subir a Platinum</option>}
                       {client.plan !== 'Palladium' && <option style={{ background: '#0b0f19', color: 'white' }} value="Palladium">Subir a Palladium</option>}
                     </select>
 
