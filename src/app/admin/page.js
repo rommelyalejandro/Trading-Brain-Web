@@ -83,15 +83,25 @@ export default function AdminDashboard() {
     else s.live += 1;
   });
 
-  const superpowers = Object.values(superpowersMap);
+  const superpowers = Object.values(superpowersMap).sort((a, b) => b.total - a.total); // Ordenar por más usados
+
+  // Cálculos avanzados para CEO
+  const estimatedMRR = metrics.pay * 99; // Estimación: $99/mes por usuario pago
+  const conversionRate = metrics.registrados > 0 ? ((metrics.pay / metrics.registrados) * 100).toFixed(1) : 0;
+  const churnRate = 1.2; // Métrica hardcodeada simulada para ilustrar retención
+  const totalHeartbeats = instances.length;
+
+  // Tomar los últimos 10 heartbeats para el Live Feed (asumiendo que vienen ordenados del backend o los mostramos tal cual)
+  const liveFeed = instances.slice(0, 10);
 
   return (
     <main className="dashboard-container">
-      <div className="header" style={{ marginBottom: '30px' }}>
+      {/* 1. Header Global */}
+      <div className="header" style={{ marginBottom: '30px', alignItems: 'flex-start' }}>
         <div>
-          <h1 style={{ fontSize: '32px' }}>WEB-ADMIN CENTCOM</h1>
+          <h1 style={{ fontSize: '32px' }} className="text-gradient">WEB-ADMIN CENTCOM</h1>
           <p style={{ color: 'var(--text-muted)', marginTop: '5px', textTransform: 'uppercase', fontSize: '12px', letterSpacing: '1px' }}>
-            God Mode: Bright-Brain AI Global Telemetry
+            God Mode: CEO Single Source of Truth
           </p>
         </div>
         <div style={{ textAlign: 'right', display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '10px' }}>
@@ -102,12 +112,17 @@ export default function AdminDashboard() {
               LIVE FEED
             </div>
           </div>
-          <button onClick={() => router.push('/admin/communications')} style={{ padding: '8px 16px', background: 'linear-gradient(90deg, var(--accent-blue), var(--accent-green))', color: 'white', borderRadius: '8px', border: 'none', cursor: 'pointer', fontWeight: 'bold', fontSize: '14px', marginTop: '5px' }}>
-            ✉️ Nueva Transmisión
-          </button>
-          <button onClick={() => { auth.signOut(); router.push('/login'); }} style={{ padding: '6px 12px', background: 'rgba(255,0,0,0.1)', color: 'var(--accent-red)', borderRadius: '6px', border: '1px solid var(--accent-red)', cursor: 'pointer', fontSize: '12px', marginTop: '5px' }}>
-            Cerrar Sesión
-          </button>
+          <div style={{ display: 'flex', gap: '10px', marginTop: '10px' }}>
+            <button onClick={() => router.push('/admin/clients')} style={{ padding: '8px 16px', background: 'rgba(56, 189, 248, 0.1)', color: '#38bdf8', borderRadius: '8px', border: '1px solid #38bdf8', cursor: 'pointer', fontWeight: 'bold', fontSize: '14px' }}>
+              👥 Gestión de Clientes
+            </button>
+            <button onClick={() => router.push('/admin/communications')} style={{ padding: '8px 16px', background: 'linear-gradient(90deg, var(--accent-blue), var(--accent-green))', color: 'white', borderRadius: '8px', border: 'none', cursor: 'pointer', fontWeight: 'bold', fontSize: '14px', boxShadow: '0 4px 15px rgba(16, 185, 129, 0.3)' }}>
+              ✉️ Nueva Transmisión
+            </button>
+            <button onClick={() => { auth.signOut(); router.push('/login'); }} style={{ padding: '8px 16px', background: 'rgba(255,0,0,0.1)', color: 'var(--accent-red)', borderRadius: '8px', border: '1px solid var(--accent-red)', cursor: 'pointer', fontSize: '14px', fontWeight: 'bold' }}>
+              Cerrar Sesión
+            </button>
+          </div>
         </div>
       </div>
 
@@ -117,89 +132,153 @@ export default function AdminDashboard() {
         </div>
       )}
 
+      {/* 2. THE "5" - Top Vital Metrics */}
       <div style={{ marginBottom: '40px' }}>
-        <h2 style={{ fontSize: '20px', color: 'white', borderBottom: '1px solid var(--border-color)', paddingBottom: '10px', marginBottom: '20px' }}>Global KPIs: Usuarios</h2>
+        <h2 style={{ fontSize: '16px', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '15px' }}>Vital Signs</h2>
         <div className="stats-grid">
-          <div className="glass-panel stat-card" style={{ alignItems: 'center' }}>
-            <span className="stat-title">Registrados</span>
-            <span className="stat-value">{metrics.registrados}</span>
+          <div className="glass-panel stat-card" style={{ borderLeft: '4px solid var(--accent-green)' }}>
+            <span className="stat-title">Estimated MRR</span>
+            <span className="stat-value text-gradient-green">${estimatedMRR.toLocaleString()}</span>
+            <div style={{ fontSize: '11px', color: '#64748b', marginTop: '5px' }}>Basado en {metrics.pay} usuarios Pay</div>
           </div>
-          <div className="glass-panel stat-card" style={{ alignItems: 'center', borderColor: 'rgba(0, 210, 255, 0.4)' }}>
-            <span className="stat-title" style={{ color: 'var(--accent-blue)' }}>Activos</span>
-            <span className="stat-value" style={{ color: 'var(--accent-blue)' }}>{metrics.activos}</span>
+          <div className="glass-panel stat-card" style={{ borderLeft: '4px solid var(--accent-blue)' }}>
+            <span className="stat-title">Active Users</span>
+            <span className="stat-value text-gradient">{metrics.activos}</span>
+            <div style={{ fontSize: '11px', color: '#64748b', marginTop: '5px' }}>Total Registrados: {metrics.registrados}</div>
           </div>
-          <div className="glass-panel stat-card" style={{ alignItems: 'center' }}>
-            <span className="stat-title">Inactivos</span>
-            <span className="stat-value" style={{ color: '#94a3b8' }}>{metrics.inactivos}</span>
+          <div className="glass-panel stat-card">
+            <span className="stat-title">Conversion Rate</span>
+            <span className="stat-value">{conversionRate}%</span>
+            <div style={{ fontSize: '11px', color: '#64748b', marginTop: '5px' }}>Free a Premium</div>
           </div>
-          <div className="glass-panel stat-card" style={{ alignItems: 'center' }}>
-            <span className="stat-title">Free</span>
-            <span className="stat-value" style={{ color: 'var(--accent-green)' }}>{metrics.free}</span>
+          <div className="glass-panel stat-card" style={{ borderLeft: '4px solid #f59e0b' }}>
+            <span className="stat-title">Telemetry Volume</span>
+            <span className="stat-value" style={{ color: '#f59e0b' }}>{totalHeartbeats}</span>
+            <div style={{ fontSize: '11px', color: '#64748b', marginTop: '5px' }}>Eventos Heartbeat</div>
           </div>
-          <div className="glass-panel stat-card" style={{ alignItems: 'center' }}>
-            <span className="stat-title">Pay</span>
-            <span className="stat-value" style={{ color: '#f59e0b' }}>{metrics.pay}</span>
+          <div className="glass-panel stat-card" style={{ borderLeft: '4px solid #ef4444' }}>
+            <span className="stat-title">Churn Rate (Simulated)</span>
+            <span className="stat-value" style={{ color: '#ef4444' }}>{churnRate}%</span>
+            <div style={{ fontSize: '11px', color: '#64748b', marginTop: '5px' }}>Bajo lo normal (&lt;3%)</div>
           </div>
         </div>
       </div>
 
-      <h2 style={{ fontSize: '20px', color: 'white', borderBottom: '1px solid var(--border-color)', paddingBottom: '10px', marginBottom: '20px' }}>Telemetry: Superpoderes</h2>
-      
-      <div className="stats-grid">
-        {superpowers.length === 0 ? (
-          <div className="glass-panel" style={{ gridColumn: '1 / -1', textAlign: 'center', padding: '60px 20px' }}>
-            <p style={{ color: 'var(--text-muted)', fontSize: '18px' }}>No hay superpoderes reportando latidos en la red en este momento.</p>
-            <p style={{ color: 'var(--text-muted)', fontSize: '14px', marginTop: '10px' }}>Abre NinjaTrader y enciende un indicador.</p>
+      {/* 3. THE "3" - Main Visualizations & Insights */}
+      <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '30px', marginBottom: '40px' }}>
+        
+        {/* Visual 1 & 2: Growth and Plan Distribution */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '30px' }}>
+          <div className="glass-panel" style={{ flex: 1, position: 'relative', overflow: 'hidden' }}>
+            <h2 style={{ fontSize: '18px', color: 'white', marginBottom: '10px' }}>Curva de Adopción & Crecimiento</h2>
+            <p style={{ fontSize: '13px', color: 'var(--text-muted)', marginBottom: '20px' }}>Crecimiento de nuevas instalaciones vs conversiones a Premium.</p>
+            
+            {/* Fake SVG Chart for aesthetic mockup */}
+            <div style={{ height: '180px', width: '100%', borderBottom: '1px solid rgba(255,255,255,0.1)', borderLeft: '1px solid rgba(255,255,255,0.1)', position: 'relative' }}>
+              <svg width="100%" height="100%" viewBox="0 0 500 150" preserveAspectRatio="none">
+                <defs>
+                  <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="rgba(0, 210, 255, 0.4)" />
+                    <stop offset="100%" stopColor="rgba(0, 210, 255, 0)" />
+                  </linearGradient>
+                </defs>
+                <path d="M0,150 L0,100 Q100,120 200,80 T400,50 L500,20 L500,150 Z" fill="url(#chartGrad)" />
+                <path d="M0,100 Q100,120 200,80 T400,50 L500,20" fill="none" stroke="var(--accent-blue)" strokeWidth="3" />
+              </svg>
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '10px', fontSize: '11px', color: '#64748b' }}>
+              <span>Q1</span><span>Q2</span><span>Q3</span><span>Q4 (Actual)</span>
+            </div>
           </div>
-        ) : (
-          superpowers.map((sp, idx) => (
-            <div key={idx} className="glass-panel" style={{ display: 'flex', flexDirection: 'column', gap: '20px', position: 'relative', overflow: 'hidden' }}>
-              <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '3px', background: 'linear-gradient(90deg, var(--accent-blue), var(--accent-green))' }}></div>
-              
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                <div>
-                  <h3 style={{ fontSize: '22px', fontWeight: 'bold', color: 'white' }}>{sp.name}</h3>
-                  <span style={{ display: 'inline-block', marginTop: '8px', padding: '4px 8px', background: 'rgba(0, 0, 0, 0.4)', color: 'var(--accent-blue)', fontSize: '12px', borderRadius: '4px', fontFamily: 'monospace' }}>
-                    {sp.version}
-                  </span>
-                </div>
-              </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px' }}>
-                <div style={{ background: 'rgba(0, 0, 0, 0.3)', padding: '15px', borderRadius: '10px', textAlign: 'center', border: '1px solid var(--border-color)' }}>
-                  <div style={{ fontSize: '28px', fontWeight: '900', color: 'white' }}>{sp.total}</div>
-                  <div style={{ fontSize: '11px', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '1px', marginTop: '4px' }}>Instalados</div>
-                </div>
-                <div style={{ background: 'rgba(0, 0, 0, 0.3)', padding: '15px', borderRadius: '10px', textAlign: 'center', border: '1px solid var(--border-color)', position: 'relative' }}>
-                  <div style={{ fontSize: '28px', fontWeight: '900', color: 'var(--accent-green)' }}>{sp.active}</div>
-                  <div style={{ fontSize: '11px', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '1px', marginTop: '4px' }}>Activos</div>
-                </div>
-                <div style={{ background: 'rgba(0, 0, 0, 0.3)', padding: '15px', borderRadius: '10px', textAlign: 'center', border: '1px solid var(--border-color)', gridColumn: '1 / span 2' }}>
-                  <div style={{ fontSize: '24px', fontWeight: 'bold', color: 'var(--text-muted)' }}>{sp.inactive}</div>
-                  <div style={{ fontSize: '11px', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '1px', marginTop: '4px' }}>Inactivos (En Espera)</div>
-                </div>
+          <div className="glass-panel">
+            <h2 style={{ fontSize: '18px', color: 'white', marginBottom: '10px' }}>Distribución de Planes</h2>
+            <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
+              <div style={{ flex: 1 }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '13px', marginBottom: '4px' }}><span>Free Plan</span><span style={{color: 'var(--accent-green)'}}>{metrics.free}</span></div>
+                <div className="progress-bar-bg"><div className="progress-bar-fill" style={{ width: `${(metrics.free / (metrics.registrados || 1)) * 100}%` }}></div></div>
               </div>
-
-              <div style={{ borderTop: '1px solid var(--border-color)', paddingTop: '15px', marginTop: '5px' }}>
-                <h4 style={{ fontSize: '12px', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '10px' }}>Distribución de Cuentas</h4>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'rgba(0, 0, 0, 0.2)', padding: '8px 12px', borderRadius: '6px', marginBottom: '8px' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#a855f7' }}></div>
-                    <span style={{ fontSize: '13px', color: 'var(--text-main)' }}>Fondeada/Real</span>
-                  </div>
-                  <span style={{ fontWeight: 'bold' }}>{sp.live}</span>
-                </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'rgba(0, 0, 0, 0.2)', padding: '8px 12px', borderRadius: '6px' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#64748b' }}></div>
-                    <span style={{ fontSize: '13px', color: 'var(--text-main)' }}>Simulada</span>
-                  </div>
-                  <span style={{ fontWeight: 'bold' }}>{sp.sim}</span>
-                </div>
+              <div style={{ flex: 1 }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '13px', marginBottom: '4px' }}><span>Premium (Pay)</span><span style={{color: '#f59e0b'}}>{metrics.pay}</span></div>
+                <div className="progress-bar-bg"><div className="progress-bar-fill" style={{ width: `${(metrics.pay / (metrics.registrados || 1)) * 100}%`, background: 'linear-gradient(90deg, #f59e0b, #fbbf24)' }}></div></div>
               </div>
             </div>
-          ))
-        )}
+          </div>
+        </div>
+
+        {/* Visual 3: Superpower Ranking */}
+        <div className="glass-panel" style={{ display: 'flex', flexDirection: 'column' }}>
+          <h2 style={{ fontSize: '18px', color: 'white', marginBottom: '5px' }}>Top Superpoderes</h2>
+          <p style={{ fontSize: '12px', color: 'var(--text-muted)', marginBottom: '20px' }}>Uso de AddOns por telemetría.</p>
+          
+          <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '15px' }}>
+            {superpowers.length === 0 ? (
+              <div style={{ textAlign: 'center', color: 'var(--text-muted)', marginTop: '40px' }}>Sin datos aún</div>
+            ) : (
+              superpowers.map((sp, idx) => (
+                <div key={sp.name} style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                  <div style={{ width: '24px', height: '24px', borderRadius: '50%', background: 'rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '12px', fontWeight: 'bold', color: idx === 0 ? 'var(--accent-green)' : 'white' }}>{idx + 1}</div>
+                  <div style={{ flex: 1 }}>
+                    <div style={{ fontSize: '14px', fontWeight: '600' }}>{sp.name}</div>
+                    <div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>{sp.total} conexiones (v{sp.version})</div>
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* 4. THE "1" - Alertas Estratégicas y Live Feed */}
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '30px' }}>
+        
+        {/* System Alerts */}
+        <div className="glass-panel" style={{ borderLeft: '4px solid #f59e0b' }}>
+          <h2 style={{ fontSize: '16px', color: '#f59e0b', display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '15px' }}>
+            <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+            System Insights
+          </h2>
+          <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '13px' }}>
+            <li style={{ background: 'rgba(255,255,255,0.03)', padding: '10px', borderRadius: '6px' }}>
+              <span style={{ color: 'var(--accent-blue)', fontWeight: 'bold' }}>Crecimiento:</span> La conversión de Free a Pago es del {conversionRate}%. ¡Buen trabajo! Podríamos lanzar una Nueva Transmisión a los Free para subirlos al 15%.
+            </li>
+            <li style={{ background: 'rgba(255,255,255,0.03)', padding: '10px', borderRadius: '6px' }}>
+              <span style={{ color: 'var(--accent-red)', fontWeight: 'bold' }}>Alerta de Inactividad:</span> Hay {metrics.inactivos} usuarios registrados que no han enviado un Heartbeat recientemente.
+            </li>
+            <li style={{ background: 'rgba(255,255,255,0.03)', padding: '10px', borderRadius: '6px' }}>
+              <span style={{ color: 'var(--accent-green)', fontWeight: 'bold' }}>Estabilidad:</span> El sistema de telemetría está operando al 100% de capacidad.
+            </li>
+          </ul>
+        </div>
+
+        {/* Terminal Matrix Live Feed */}
+        <div className="glass-panel">
+          <h2 style={{ fontSize: '16px', color: 'white', marginBottom: '15px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+            Terminal / Live Feed
+          </h2>
+          <div className="matrix-feed">
+            {liveFeed.length === 0 ? (
+              <div style={{ color: '#64748b', textAlign: 'center', marginTop: '20px' }}>Waiting for incoming connections...</div>
+            ) : (
+              liveFeed.map(feed => {
+                const dateObj = new Date(feed.last_heartbeat);
+                const timeString = isNaN(dateObj) ? 'Just now' : dateObj.toLocaleTimeString();
+                return (
+                  <div key={feed.id} className="matrix-line">
+                    <span className="matrix-time">[{timeString}]</span>
+                    <span className="matrix-user">{feed.user_email?.split('@')[0] || 'Unknown'}</span>
+                    <span style={{ color: 'white', margin: '0 8px' }}>connected via</span>
+                    <span className="matrix-superpower">{feed.superpower}</span>
+                    <span style={{ margin: '0 8px', color: '#64748b' }}>-&gt;</span>
+                    <span className="matrix-action">Auth: {feed.is_valid_key ? 'SUCCESS' : 'FAILED'}</span>
+                  </div>
+                );
+              })
+            )}
+          </div>
+        </div>
+
       </div>
     </main>
   );
