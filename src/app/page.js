@@ -12,7 +12,12 @@ const dict = {
     trialBtn: "Start Free Trial", dashBtn: "Go to Dashboard",
     f1Title: "Ultra-Fast SuperCopier", f1Desc: "Replicate your trades across multiple real accounts in milliseconds. Zero latency, zero lockups.",
     f2Title: "Smart Analytics Log", f2Desc: "Automatically record your trades, analyze your psychology (Tiltmeter), and discover your real mathematical edge.",
-    f3Title: "Risk/Reward Shield", f3Desc: "If your risk exceeds your predefined limit, the system automatically switches to Micro contracts to protect you."
+    f3Title: "Risk/Reward Shield", f3Desc: "If your risk exceeds your predefined limit, the system automatically switches to Micro contracts to protect you.",
+    f4Title: "VP Fixed (Volume Profile)", f4Desc: "Draw millimeter-perfect volume profiles anywhere on your chart using native NinjaTrader drawing architecture.",
+    f5Title: "Dynamic VPOC", f5Desc: "Identify in real-time the exact price level with the highest institutional transactional volume within each forming candle.",
+    f6Title: "DeltaBar & Order Flow", f6Desc: "Measure pure market aggression (Ask vs Bid) with ultra-light histograms that won't lag or crash NinjaTrader.",
+    f7Title: "Big Trade Detector", f7Desc: "Instantly spot massive institutional market orders crossing the tape, plotted precisely on the chart.",
+    f8Title: "Absorption Heatmap", f8Desc: "Detect where limit orders are absorbing aggressive market participants before reversals happen."
   },
   es: {
     features: "Funciones", testimonials: "Testimonios", faq: "FAQ",
@@ -23,7 +28,12 @@ const dict = {
     trialBtn: "Empezar Prueba Gratis", dashBtn: "Ir al Dashboard",
     f1Title: "SuperCopier Ultrarrápido", f1Desc: "Replica tus operaciones a múltiples cuentas reales en milisegundos. Cero latencia, cero bloqueos.",
     f2Title: "Bitácora Analítica", f2Desc: "Registra tus operaciones automáticamente, analiza tu psicología (Tiltmeter) y descubre tu ventaja matemática.",
-    f3Title: "Escudo Risk/Reward", f3Desc: "Si tu riesgo excede tu límite predefinido, el sistema cambia automáticamente a contratos Micro para protegerte."
+    f3Title: "Escudo Risk/Reward", f3Desc: "Si tu riesgo excede tu límite predefinido, el sistema cambia automáticamente a contratos Micro para protegerte.",
+    f4Title: "VP Fixed (Volume Profile)", f4Desc: "Dibuja perfiles de volumen milimétricos en cualquier zona del gráfico usando arquitectura de herramientas de dibujo nativas.",
+    f5Title: "VPOC Dinámico", f5Desc: "Identifica en tiempo real el nivel de precio exacto con mayor volumen transaccional institucional dentro de cada vela.",
+    f6Title: "DeltaBar & Order Flow", f6Desc: "Mide la agresión pura del mercado (Ask vs Bid) con histogramas ultraligeros que no saturan ni congelan NinjaTrader.",
+    f7Title: "Detector de Big Trades", f7Desc: "Identifica instantáneamente grandes órdenes de mercado institucionales cruzando la cinta de opciones, graficadas con precisión.",
+    f8Title: "Mapa de Absorción", f8Desc: "Detecta zonas donde las órdenes límite (Icebergs) están absorbiendo la agresión del mercado justo antes de un giro."
   }
 };
 
@@ -100,7 +110,12 @@ export default function LandingPage() {
           {[
             { icon: '⚡', title: t.f1Title, desc: t.f1Desc },
             { icon: '📓', title: t.f2Title, desc: t.f2Desc },
-            { icon: '🛡️', title: t.f3Title, desc: t.f3Desc }
+            { icon: '🛡️', title: t.f3Title, desc: t.f3Desc },
+            { icon: '📊', title: t.f4Title, desc: t.f4Desc },
+            { icon: '🎯', title: t.f5Title, desc: t.f5Desc },
+            { icon: '⚖️', title: t.f6Title, desc: t.f6Desc },
+            { icon: '🐳', title: t.f7Title, desc: t.f7Desc },
+            { icon: '🧱', title: t.f8Title, desc: t.f8Desc }
           ].map((feat, i) => (
             <div key={i} style={{ background: '#101726', border: '1px solid rgba(255, 255, 255, 0.03)', borderRadius: '16px', padding: '40px', transition: 'transform 0.3s, border-color 0.3s', cursor: 'default' }} onMouseOver={e => { e.currentTarget.style.transform = 'translateY(-5px)'; e.currentTarget.style.borderColor = 'rgba(34, 197, 94, 0.5)' }} onMouseOut={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.03)' }}>
               <div style={{ fontSize: '2rem', marginBottom: '24px', background: 'rgba(34, 197, 94, 0.1)', width: '64px', height: '64px', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '12px' }}>

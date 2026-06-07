@@ -94,12 +94,20 @@ export default function AdminDashboard() {
             God Mode: Bright-Brain AI Global Telemetry
           </p>
         </div>
-        <div style={{ textAlign: 'right' }}>
-          <p style={{ color: 'var(--text-muted)', fontSize: '12px', textTransform: 'uppercase', marginBottom: '4px' }}>Status</p>
-          <div className="status-badge">
-            <div className="pulse"></div>
-            LIVE FEED
+        <div style={{ textAlign: 'right', display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '10px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <p style={{ color: 'var(--text-muted)', fontSize: '12px', textTransform: 'uppercase', marginBottom: '4px' }}>Status</p>
+            <div className="status-badge">
+              <div className="pulse"></div>
+              LIVE FEED
+            </div>
           </div>
+          <button onClick={() => router.push('/admin/communications')} style={{ padding: '8px 16px', background: 'linear-gradient(90deg, var(--accent-blue), var(--accent-green))', color: 'white', borderRadius: '8px', border: 'none', cursor: 'pointer', fontWeight: 'bold', fontSize: '14px', marginTop: '5px' }}>
+            ✉️ Nueva Transmisión
+          </button>
+          <button onClick={() => { auth.signOut(); router.push('/login'); }} style={{ padding: '6px 12px', background: 'rgba(255,0,0,0.1)', color: 'var(--accent-red)', borderRadius: '6px', border: '1px solid var(--accent-red)', cursor: 'pointer', fontSize: '12px', marginTop: '5px' }}>
+            Cerrar Sesión
+          </button>
         </div>
       </div>
 
