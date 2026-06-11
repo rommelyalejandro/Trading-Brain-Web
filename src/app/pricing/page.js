@@ -56,7 +56,7 @@ export default function PricingPage() {
 
   const plans = [
     {
-      name: "Free",
+      name: "Starter",
       alias: "Cuentas simuladas ilimitadas. Prueba todo el potencial del sistema sin restricciones.",
       price: "$0.00",
       period: "/mes",
@@ -71,12 +71,12 @@ export default function PricingPage() {
       glow: false
     },
     {
-      name: "Gold",
+      name: "Scale",
       alias: "Trader Intermedio",
       price: "$3.99",
       period: "/mes",
       priceId: "price_1TfSFK6tDIdDfbEs6do365ck",
-      features: ["Todo lo del plan Free", "Máx. 2 Cuentas Reales/Fondeo", "Copiado de Alta Frecuencia", "Multiplicadores Dinámicos"],
+      features: ["Todo lo del plan Starter", "Máx. 2 Cuentas Reales/Fondeo", "Copiado de Alta Frecuencia", "Multiplicadores Dinámicos"],
       themeColor: "#eab308", // yellow-500
       bgStyle: "rgba(16, 23, 38, 0.4)",
       borderStyle: "1px solid rgba(234, 179, 8, 0.3)",
@@ -86,12 +86,12 @@ export default function PricingPage() {
       glow: false
     },
     {
-      name: "Platinum",
+      name: "Advanced",
       alias: "Fondeado Pro",
       price: "$9.99",
       period: "/mes",
       priceId: "price_1TfSFL6tDIdDfbEskBhJA4Ns",
-      features: ["Todo lo del plan Gold", "Máx. 10 Cuentas Reales/Fondeo", "Soporte Prioritario 24/7", "Funciones Avanzadas de Riesgo (R/R)"],
+      features: ["Todo lo del plan Scale", "Máx. 10 Cuentas Reales/Fondeo", "Soporte Prioritario 24/7", "Funciones Avanzadas de Riesgo (R/R)"],
       themeColor: "#f8fafc", // slate-50
       bgStyle: "rgba(16, 23, 38, 0.6)",
       borderStyle: "1px solid rgba(248, 250, 252, 0.4)",
@@ -101,12 +101,12 @@ export default function PricingPage() {
       glow: false
     },
     {
-      name: "Palladium AI",
+      name: "Prime",
       alias: "Master Cuántico",
       price: "$19.99",
       period: "/mes",
       priceId: "price_1TfSFM6tDIdDfbEsRthXTYqB",
-      features: ["Todo lo del plan Platinum", "Cuentas Reales ILIMITADAS", "Inteligencia Artificial Predictiva", "Latencia Ultra-Baja Dedicada"],
+      features: ["Todo lo del plan Advanced", "Cuentas Reales ILIMITADAS", "Inteligencia Artificial Predictiva", "Latencia Ultra-Baja Dedicada"],
       themeColor: "#22c55e", // neon-green
       bgStyle: "rgba(10, 15, 28, 0.8)",
       borderStyle: "1px solid rgba(34, 197, 94, 0.6)",
@@ -212,13 +212,13 @@ export default function PricingPage() {
                 <div style={{
                   display: 'flex',
                   alignItems: 'baseline',
-                  marginBottom: plan.name === "Free" ? '8px' : '32px'
+                  marginBottom: plan.name === "Starter" ? '8px' : '32px'
                 }}>
                   <span style={{ fontSize: '3rem', fontWeight: '800', color: '#ffffff' }}>{plan.price}</span>
                   <span style={{ marginLeft: '8px', fontSize: '1.125rem', fontWeight: '500', color: '#94a3b8' }}>{plan.period}</span>
                 </div>
                 
-                {plan.name === "Free" && (
+                {plan.name === "Starter" && (
                   <div style={{
                     fontSize: '0.75rem',
                     color: '#22d3ee',
@@ -281,7 +281,7 @@ export default function PricingPage() {
 
               <div style={{ position: 'relative', zIndex: 10, marginTop: 'auto' }}>
                 <button
-                  onClick={() => handleSubscribe(plan.priceId, plan.name === 'Free' ? 'payment' : 'subscription')}
+                  onClick={() => handleSubscribe(plan.priceId, plan.name === 'Starter' ? 'payment' : 'subscription')}
                   disabled={loading}
                   style={{
                     width: '100%',
@@ -300,7 +300,7 @@ export default function PricingPage() {
                   onMouseOver={(e) => { if(!loading) e.currentTarget.style.transform = 'scale(1.02)'; }}
                   onMouseOut={(e) => { if(!loading) e.currentTarget.style.transform = 'scale(1)'; }}
                 >
-                  {loading ? 'PROCESANDO...' : (plan.name === 'Free' ? 'Activar licencia de por vida $1.99 pago único' : `Elegir ${plan.name}`)}
+                  {loading ? 'PROCESANDO...' : (plan.name === 'Starter' ? 'Activar licencia de por vida $1.99 pago único' : `Elegir ${plan.name}`)}
                 </button>
               </div>
             </div>

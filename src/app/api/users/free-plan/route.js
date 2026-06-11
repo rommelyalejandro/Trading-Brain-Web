@@ -22,17 +22,17 @@ export async function POST(req) {
 
     const userId = decodedToken.uid;
 
-    // Actualizar usuario en Firestore a plan Free
+    // Actualizar usuario en Firestore a plan Starter
     await db.collection('users').doc(userId).set({
-      plan: 'Free',
+      plan: 'Starter',
       subscription_status: 'active',
-      label: 'Free',
+      label: 'Starter',
       updated_at: admin.firestore.FieldValue.serverTimestamp()
     }, { merge: true });
 
-    return NextResponse.json({ success: true, message: 'Plan Free asignado exitosamente' });
+    return NextResponse.json({ success: true, message: 'Plan Starter asignado exitosamente' });
   } catch (error) {
-    console.error('Error asignando plan Free:', error);
+    console.error('Error asignando plan Starter:', error);
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });
   }
 }

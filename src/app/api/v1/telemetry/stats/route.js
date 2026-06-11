@@ -20,7 +20,7 @@ export async function GET(req) {
     }
 
     const userData = snapshot.docs[0].data();
-    const currentPlan = userData.plan || 'Free';
+    const currentPlan = userData.plan || 'Starter';
 
     // Retornar éxito junto con el plan del usuario
     return NextResponse.json({ 

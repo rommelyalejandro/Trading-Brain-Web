@@ -118,10 +118,10 @@ export default function AdminClients() {
             style={{ padding: '8px 12px', background: 'rgba(0,0,0,0.5)', color: 'white', border: '1px solid var(--border-color)', borderRadius: '8px', outline: 'none' }}
           >
             <option style={{ background: '#0b0f19', color: 'white' }} value="All">Todos los Planes</option>
-            <option style={{ background: '#0b0f19', color: 'white' }} value="Free">Free</option>
-            <option style={{ background: '#0b0f19', color: 'white' }} value="Gold">Gold</option>
-            <option style={{ background: '#0b0f19', color: 'white' }} value="Platinum">Platinum</option>
-            <option style={{ background: '#0b0f19', color: 'white' }} value="Palladium">Palladium</option>
+            <option style={{ background: '#0b0f19', color: 'white' }} value="Starter">Starter</option>
+            <option style={{ background: '#0b0f19', color: 'white' }} value="Scale">Scale</option>
+            <option style={{ background: '#0b0f19', color: 'white' }} value="Advanced">Advanced</option>
+            <option style={{ background: '#0b0f19', color: 'white' }} value="Prime">Prime</option>
           </select>
           <button onClick={fetchClients} style={{ padding: '8px 16px', background: 'var(--panel-bg)', color: 'var(--accent-blue)', border: '1px solid var(--border-color)', borderRadius: '8px', cursor: 'pointer' }}>
             🔄 Refrescar
@@ -164,11 +164,11 @@ export default function AdminClients() {
                       borderRadius: '12px', 
                       fontSize: '11px', 
                       fontWeight: 'bold',
-                      background: client.plan === 'Palladium' ? 'linear-gradient(90deg, #a855f7, #c084fc)' : 
-                                  client.plan === 'Platinum' ? 'linear-gradient(90deg, #94a3b8, #cbd5e1)' :
-                                  client.plan === 'Gold' ? 'linear-gradient(90deg, #f59e0b, #fbbf24)' : 
+                      background: client.plan === 'Prime' ? 'linear-gradient(90deg, #a855f7, #c084fc)' : 
+                                  client.plan === 'Advanced' ? 'linear-gradient(90deg, #94a3b8, #cbd5e1)' :
+                                  client.plan === 'Scale' ? 'linear-gradient(90deg, #f59e0b, #fbbf24)' : 
                                   'rgba(255,255,255,0.1)',
-                      color: client.plan === 'Free' ? 'white' : 'black'
+                      color: client.plan === 'Starter' ? 'white' : 'black'
                     }}>
                       {client.plan}
                     </span>
@@ -190,10 +190,10 @@ export default function AdminClients() {
                       style={{ padding: '4px 8px', background: 'transparent', color: 'white', border: '1px solid var(--border-color)', borderRadius: '4px', fontSize: '11px', cursor: 'pointer' }}
                     >
                       <option style={{ background: '#0b0f19', color: 'white' }} value="">Cambiar Plan...</option>
-                      {client.plan !== 'Free' && <option style={{ background: '#0b0f19', color: 'white' }} value="Free">Bajar a Free</option>}
-                      {client.plan !== 'Gold' && <option style={{ background: '#0b0f19', color: 'white' }} value="Gold">Subir a Gold</option>}
-                      {client.plan !== 'Platinum' && <option style={{ background: '#0b0f19', color: 'white' }} value="Platinum">Subir a Platinum</option>}
-                      {client.plan !== 'Palladium' && <option style={{ background: '#0b0f19', color: 'white' }} value="Palladium">Subir a Palladium</option>}
+                      {client.plan !== 'Starter' && <option style={{ background: '#0b0f19', color: 'white' }} value="Starter">Bajar a Starter</option>}
+                      {client.plan !== 'Scale' && <option style={{ background: '#0b0f19', color: 'white' }} value="Scale">Subir a Scale</option>}
+                      {client.plan !== 'Advanced' && <option style={{ background: '#0b0f19', color: 'white' }} value="Advanced">Subir a Advanced</option>}
+                      {client.plan !== 'Prime' && <option style={{ background: '#0b0f19', color: 'white' }} value="Prime">Subir a Prime</option>}
                     </select>
 
                     {client.status === 'Active' ? (

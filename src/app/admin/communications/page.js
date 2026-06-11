@@ -9,7 +9,7 @@ export default function CommunicationsAdmin() {
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
   const [msgType, setMsgType] = useState('info'); // info, warning, update, offer
-  const [audience, setAudience] = useState('all'); // all, free, gold, platinum, palladium, specific
+  const [audience, setAudience] = useState('all'); // all, starter, scale, advanced, prime, specific
   const [targetEmail, setTargetEmail] = useState('');
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(null);
@@ -133,10 +133,10 @@ export default function CommunicationsAdmin() {
                 style={{ width: '100%', padding: '12px', background: 'rgba(0,0,0,0.5)', border: '1px solid rgba(255,255,255,0.2)', borderRadius: '8px', color: 'white', fontSize: '16px' }}
               >
                 <option value="all">Todos los Usuarios</option>
-                <option value="free">Solo Plan FREE</option>
-                <option value="gold">Solo Plan GOLD</option>
-                <option value="platinum">Solo Plan PLATINUM</option>
-                <option value="palladium">Solo Plan PALLADIUM</option>
+                <option value="starter">Solo Plan FREE</option>
+                <option value="scale">Solo Plan GOLD</option>
+                <option value="advanced">Solo Plan PLATINUM</option>
+                <option value="prime">Solo Plan PALLADIUM</option>
                 <option value="specific">Usuario Específico (Email)</option>
               </select>
             </div>

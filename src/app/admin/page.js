@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 export default function AdminDashboard() {
   const [user, setUser] = useState(null);
   const [instances, setInstances] = useState([]);
-  const [metrics, setMetrics] = useState({ registrados: 0, activos: 0, inactivos: 0, free: 0, pay: 0 });
+  const [metrics, setMetrics] = useState({ registrados: 0, activos: 0, inactivos: 0, starter: 0, pay: 0 });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const router = useRouter();
@@ -149,7 +149,7 @@ export default function AdminDashboard() {
           <div className="glass-panel stat-card">
             <span className="stat-title">Conversion Rate</span>
             <span className="stat-value">{conversionRate}%</span>
-            <div style={{ fontSize: '11px', color: '#64748b', marginTop: '5px' }}>Free a Premium</div>
+            <div style={{ fontSize: '11px', color: '#64748b', marginTop: '5px' }}>Starter a Premium</div>
           </div>
           <div className="glass-panel stat-card" style={{ borderLeft: '4px solid #f59e0b' }}>
             <span className="stat-title">Telemetry Volume</span>
@@ -195,8 +195,8 @@ export default function AdminDashboard() {
             <h2 style={{ fontSize: '18px', color: 'white', marginBottom: '10px' }}>Distribución de Planes</h2>
             <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
               <div style={{ flex: 1 }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '13px', marginBottom: '4px' }}><span>Free Plan</span><span style={{color: 'var(--accent-green)'}}>{metrics.free}</span></div>
-                <div className="progress-bar-bg"><div className="progress-bar-fill" style={{ width: `${(metrics.free / (metrics.registrados || 1)) * 100}%` }}></div></div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '13px', marginBottom: '4px' }}><span>Starter Plan</span><span style={{color: 'var(--accent-green)'}}>{metrics.starter}</span></div>
+                <div className="progress-bar-bg"><div className="progress-bar-fill" style={{ width: `${(metrics.starter / (metrics.registrados || 1)) * 100}%` }}></div></div>
               </div>
               <div style={{ flex: 1 }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '13px', marginBottom: '4px' }}><span>Premium (Pay)</span><span style={{color: '#f59e0b'}}>{metrics.pay}</span></div>
@@ -240,7 +240,7 @@ export default function AdminDashboard() {
           </h2>
           <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '13px' }}>
             <li style={{ background: 'rgba(255,255,255,0.03)', padding: '10px', borderRadius: '6px' }}>
-              <span style={{ color: 'var(--accent-blue)', fontWeight: 'bold' }}>Crecimiento:</span> La conversión de Free a Pago es del {conversionRate}%. ¡Buen trabajo! Podríamos lanzar una Nueva Transmisión a los Free para subirlos al 15%.
+              <span style={{ color: 'var(--accent-blue)', fontWeight: 'bold' }}>Crecimiento:</span> La conversión de Starter a Pago es del {conversionRate}%. ¡Buen trabajo! Podríamos lanzar una Nueva Transmisión a los Starter para subirlos al 15%.
             </li>
             <li style={{ background: 'rgba(255,255,255,0.03)', padding: '10px', borderRadius: '6px' }}>
               <span style={{ color: 'var(--accent-red)', fontWeight: 'bold' }}>Alerta de Inactividad:</span> Hay {metrics.inactivos} usuarios registrados que no han enviado un Heartbeat recientemente.

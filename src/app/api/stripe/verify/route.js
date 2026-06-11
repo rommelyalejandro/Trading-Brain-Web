@@ -40,10 +40,10 @@ export async function POST(request) {
         // Stripe usually sets description to the product name
         planName = session.line_items.data[0].description;
         // Clean up common prefixes like "Licencia" or "Plan" if we want, or leave as is
-        if (planName.toLowerCase().includes('free')) planName = 'Free';
-        else if (planName.toLowerCase().includes('gold')) planName = 'Gold';
-        else if (planName.toLowerCase().includes('platinum')) planName = 'Platinum';
-        else if (planName.toLowerCase().includes('palladium')) planName = 'Palladium AI';
+        if (planName.toLowerCase().includes('starter')) planName = 'Starter';
+        else if (planName.toLowerCase().includes('scale')) planName = 'Scale';
+        else if (planName.toLowerCase().includes('advanced')) planName = 'Advanced';
+        else if (planName.toLowerCase().includes('prime')) planName = 'Prime';
       }
 
       // Update user status

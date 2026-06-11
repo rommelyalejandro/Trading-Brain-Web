@@ -38,10 +38,10 @@ export async function POST(request) {
         let planName = 'Premium';
         if (expandedSession.line_items && expandedSession.line_items.data.length > 0) {
           planName = expandedSession.line_items.data[0].description;
-          if (planName.toLowerCase().includes('free')) planName = 'Free';
-          else if (planName.toLowerCase().includes('gold')) planName = 'Gold';
-          else if (planName.toLowerCase().includes('platinum')) planName = 'Platinum';
-          else if (planName.toLowerCase().includes('palladium')) planName = 'Palladium AI';
+          if (planName.toLowerCase().includes('starter')) planName = 'Starter';
+          else if (planName.toLowerCase().includes('scale')) planName = 'Scale';
+          else if (planName.toLowerCase().includes('advanced')) planName = 'Advanced';
+          else if (planName.toLowerCase().includes('prime')) planName = 'Prime';
         }
 
         // Fetch the user's document

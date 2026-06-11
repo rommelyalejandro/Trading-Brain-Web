@@ -62,7 +62,7 @@ export async function POST(request) {
       api_key: newApiKey,
       email: user.email,
       name: user.name || '',
-      label: currentPlan, // Etiqueta hereda el plan del usuario (Free, Gold, etc.)
+      label: currentPlan, // Etiqueta hereda el plan del usuario (Starter, Scale, etc.)
       created_at: admin.firestore.FieldValue.serverTimestamp()
     }, { merge: true });
     

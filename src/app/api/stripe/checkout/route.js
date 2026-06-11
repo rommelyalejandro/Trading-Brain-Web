@@ -45,7 +45,7 @@ export async function POST(request) {
           quantity: 1,
         },
       ],
-      mode: mode, // 'payment' for one-time (Free plan), 'subscription' for the rest
+      mode: mode, // 'payment' for one-time (Starter plan), 'subscription' for the rest
       success_url: `${origin}/dashboard?payment_success=true&session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${origin}/pricing?payment_canceled=true`,
       metadata: {

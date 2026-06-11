@@ -31,7 +31,7 @@ export default function Login() {
       await setDoc(userRef, {
         email: user.email,
         name: user.displayName || user.email.split('@')[0],
-        plan: 'free',
+        plan: 'starter',
         api_key: '', 
         createdAt: new Date().toISOString()
       });

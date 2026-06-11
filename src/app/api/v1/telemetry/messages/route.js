@@ -8,7 +8,7 @@ export async function GET(request) {
     // Validar API Key
     let isValid = false;
     let userEmail = '';
-    let planName = 'free';
+    let planName = 'starter';
 
     if (apiKey) {
       const usersSnapshot = await db.collection('users').where('api_key', '==', apiKey).limit(1).get();
@@ -17,7 +17,7 @@ export async function GET(request) {
         const userDoc = usersSnapshot.docs[0];
         const userData = userDoc.data();
         userEmail = userData.email || '';
-        planName = (userData.plan || 'Free').toLowerCase();
+        planName = (userData.plan || 'Starter').toLowerCase();
       }
     }
 
@@ -46,7 +46,7 @@ export async function GET(request) {
           shouldInclude = true;
         }
       } else {
-        // Filtrar por plan (free, gold, platinum, palladium)
+        // Filtrar por plan (starter, scale, advanced, prime)
         if (audience === planName) {
           shouldInclude = true;
         }

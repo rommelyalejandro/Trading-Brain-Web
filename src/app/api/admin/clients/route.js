@@ -30,7 +30,7 @@ export async function GET(request) {
         id: doc.id,
         email: data.email || 'No email',
         name: data.name || 'Anonymous',
-        plan: data.plan || 'Free',
+        plan: data.plan || 'Starter',
         api_key: data.api_key || 'No Key Generated',
         status: data.status || 'Active', // Active or Inactive
         created_at: data.created_at ? data.created_at.toDate() : null

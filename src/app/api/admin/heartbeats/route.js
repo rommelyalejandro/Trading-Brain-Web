@@ -52,7 +52,7 @@ export async function GET(req) {
     usersSnapshot.forEach(doc => {
       totalRegistered++;
       const d = doc.data();
-      // Asumimos campo 'plan', por defecto 'free' si no existe
+      // Asumimos campo 'plan', por defecto 'starter' si no existe
       if (d.plan === 'pay' || d.plan === 'pro') {
         payUsers++;
       } else {
@@ -69,7 +69,7 @@ export async function GET(req) {
       registrados: totalRegistered,
       activos: activos,
       inactivos: inactivos,
-      free: freeUsers,
+      starter: freeUsers,
       pay: payUsers
     };
 

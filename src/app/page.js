@@ -5,14 +5,14 @@ import { useState } from 'react';
 const dict = {
   en: {
     features: "Features", testimonials: "Testimonials", faq: "FAQ",
-    login: "Log In", getFunded: "Get Free License",
+    login: "Log In", getFunded: "Get Starter License",
     badge: "The Ultimate Anti-Blowout Shield",
     title1: "Never blow another", title2: "Prop Account", title3: "again.",
     desc: "The first AI-driven trading ecosystem designed to protect your capital. Ultra-fast local trade copier, automated risk management, and institutional tools included.",
-    trialBtn: "Start Free Trial", dashBtn: "Go to Dashboard",
+    trialBtn: "Start Starter Trial", dashBtn: "Go to Dashboard",
     f1Title: "Protector AI", f1Desc: "Protects you from blowing funded accounts due to human error or bad practices. Automatically manages your risk.",
     f2Title: "High-Efficiency Trade Copier", f2Desc: "Copy your trades to as many accounts as you want with zero latency. Seamless replication for prop firms.",
-    f3Title: "All SuperPowers Included", f3Desc: "Get our entire suite of premium institutional indicators for free: Order Flow, DeltaBar, Big Trades, Absorptions, and more.",
+    f3Title: "All SuperPowers Included", f3Desc: "Get our entire suite of premium institutional indicators for starter: Order Flow, DeltaBar, Big Trades, Absorptions, and more.",
     spHeader: "Your Institutional Arsenal, Included.",
     spSub: "You don't just get the Protector and the Copier. We give you our 6 institutional order flow and volume reading tools to give you an irrefutable mathematical edge in the market.",
     sp1Title: "Order Flow (Footprint)", sp1Desc: "See inside the candles. Analyze exactly how many contracts were bought and sold at every price level.",

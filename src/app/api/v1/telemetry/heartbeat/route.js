@@ -15,7 +15,7 @@ export async function POST(request) {
     let isValid = false;
     let userEmail = 'unknown';
     let errorMessage = 'Invalid API Key';
-    let planName = 'Free';
+    let planName = 'Starter';
     if (apiKey) {
       const usersSnapshot = await db.collection('users').where('api_key', '==', apiKey).limit(1).get();
       if (!usersSnapshot.empty) {
@@ -23,7 +23,7 @@ export async function POST(request) {
         const userDoc = usersSnapshot.docs[0];
         const userData = userDoc.data();
         userEmail = userData.email;
-        planName = userData.plan || 'Free';
+        planName = userData.plan || 'Starter';
 
         // Anti-Piratería: Bloqueo de Hardware / Instancia
         const incomingInstanceId = payload.instance_id || request.headers.get('x-instance-id');
